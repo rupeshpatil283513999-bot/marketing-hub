@@ -1,6 +1,6 @@
 [build]
   # Publish only the app itself, not the backend source or notes.
-  command = "mkdir -p dist && cp index.html *.png dist/"
+  command = "mkdir -p dist && cp index.html intro.mp4 *.png dist/"
   publish = "dist"
 
 [functions]
