@@ -8907,6 +8907,66 @@
     .cx-tab:hover { color: var(--ink); }
     .cx-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
 
+
+    /* ---- Tech: Zoom and Luma ---- */
+    .zl-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; align-items: start; }
+    .zl-card-h { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .zl-card-t { flex: 1; min-width: 160px; }
+    .zl-blurb { margin: 2px 0 0; font-size: 12.5px; color: var(--ink-soft); }
+    .zl-logo { width: 36px; height: 36px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; flex: none; color: #fff; }
+    .zl-logo.zoom { background: #2D8CFF; }
+    .zl-logo.luma { background: #7C5CFF; }
+    .zl-state { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--ink-soft); white-space: nowrap; }
+    .zl-state i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); }
+    .zl-state.ok { color: var(--accent); border-color: rgba(5, 160, 73, 0.35); background: rgba(5, 160, 73, 0.1); }
+    .zl-state.ok i { background: var(--accent); }
+    .zl-state.warn { color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.1); }
+    .zl-state.warn i { background: var(--accent-amber); }
+    .zl-state.bad { color: var(--accent-coral); border-color: rgba(255, 87, 87, 0.35); background: rgba(255, 87, 87, 0.1); }
+    .zl-state.bad i { background: var(--accent-coral); }
+    .zl-ok-line { margin-top: 12px; font-size: 13px; color: var(--ink-soft); }
+    .zl-ok-line b { color: var(--ink); }
+    .zl-bad { color: var(--accent-coral); border-color: rgba(255, 87, 87, 0.3); }
+    .zl-code { font-family: var(--font-mono); font-size: 11.5px; background: var(--muted-fill); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; margin: 0 3px; color: var(--ink); }
+    .zl-steps { margin: 12px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+    .zl-input { font: inherit; font-size: 13px; color: var(--ink); background: var(--surface-hover); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; min-width: 0; width: 100%; outline: none; }
+    .zl-input:focus { border-color: var(--border-focus); }
+    .zl-pair { border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+    .zl-pair-h { display: flex; align-items: center; gap: 8px; }
+    .zl-label { font-weight: 600; font-size: 14px; }
+    .zl-pick { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; }
+    .zl-field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .zl-field > span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+    .zl-sync { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+    .zl-res { display: flex; flex-direction: column; gap: 12px; }
+    .zl-tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+    .zl-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .zl-table th, .zl-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .zl-table th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); background: var(--muted-fill); }
+    .zl-table th:nth-child(n+2), .zl-table td:nth-child(n+2) { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); width: 110px; }
+    .zl-table tr:last-child td { border-bottom: 0; }
+    .zl-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; align-items: start; }
+    .zl-checks { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .zl-checks-h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 13px; }
+    .zl-sum { font-size: 11.5px; font-weight: 600; }
+    .zl-sum.ok { color: var(--accent); }
+    .zl-sum.warn { color: var(--accent-amber); }
+    .zl-check { display: flex; gap: 9px; align-items: flex-start; font-size: 13px; }
+    .zl-tick { width: 18px; height: 18px; border-radius: 50%; flex: none; margin-top: 1px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: var(--muted-fill); color: var(--ink-soft); }
+    .zl-check.ok .zl-tick { background: rgba(5, 160, 73, 0.18); color: var(--accent); }
+    .zl-check.missing .zl-tick { background: rgba(255, 87, 87, 0.18); color: var(--accent-coral); }
+    .zl-check-t small { display: block; font-size: 11.5px; color: var(--ink-faint); margin-top: 1px; overflow-wrap: anywhere; }
+    .zl-block { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .zl-q-t { font-size: 13px; font-weight: 600; }
+    .zl-q-s { font-size: 11.5px; color: var(--ink-soft); font-weight: 400; }
+    .zl-poll { display: flex; flex-direction: column; gap: 5px; }
+    .zl-bar { display: grid; grid-template-columns: minmax(80px, 160px) 1fr 32px; gap: 8px; align-items: center; font-size: 12px; }
+    .zl-bar-l { color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .zl-bar-track { height: 8px; border-radius: 4px; background: var(--muted-fill); overflow: hidden; display: block; }
+    .zl-bar-track > span { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+    .zl-bar-n { text-align: right; font-family: var(--font-mono); color: var(--ink-soft); }
+    @media (max-width: 760px) { .zl-pick { grid-template-columns: 1fr; } }
+
     /* ---- Plan calendar ---- */
     .pcal { position: relative; display: flex; flex-direction: column; gap: 12px; }
     .pcal-insights { display: flex; flex-direction: column; gap: 8px; }
@@ -22397,6 +22457,7 @@
         source: REGISTRATION_SOURCES.includes(it.source) ? it.source : '',
         partnerName: it.partnerName || '',
         registeredAt: it.registeredAt || todayISODate(),
+        attended: !!it.attended,
         notes: it.notes || '',
         addedAt: it.addedAt || new Date().toISOString(),
       };
@@ -22680,20 +22741,21 @@
         const e = extractEmailFromContact(r.contact);
         if (e) emailIndex[e] = i;
       });
-      let added = 0, updated = 0;
+      let added = 0, updated = 0, attended = 0;
       parsedRows.forEach((row) => {
         const email = (row.email || '').trim().toLowerCase();
+        if (row.attended) attended += 1;
         if (email && emailIndex[email] != null) {
           const idx = emailIndex[email];
-          next[idx] = { ...next[idx], name: next[idx].name || row.name, registeredAt: row.registeredAt || next[idx].registeredAt };
+          next[idx] = { ...next[idx], name: next[idx].name || row.name, registeredAt: row.registeredAt || next[idx].registeredAt, attended: !!(next[idx].attended || row.attended), partnerName: next[idx].partnerName || row.partnerName || '' };
           updated += 1;
         } else {
-          next.push(normalizeRegistration({ name: row.name, contact: row.email, source, registeredAt: row.registeredAt }));
+          next.push(normalizeRegistration({ name: row.name, contact: row.email, source: row.source || source, partnerName: row.partnerName || '', registeredAt: row.registeredAt, attended: row.attended, notes: row.notes || '' }));
           if (email) emailIndex[email] = next.length - 1;
           added += 1;
         }
       });
-      return { items: next, added, updated };
+      return { items: next, added, updated, attended };
     }
 
     function computeRegistrationStats(items, today) {
@@ -27342,7 +27404,12 @@
       events: { label: 'Events', icon: 'calendar', section: 'event' },
       partners: { label: 'Partners', icon: 'user', section: 'partners' },
       cx: { label: 'Experience', icon: 'heart', section: 'cx' },
+      tech: { label: 'Tech', icon: 'video', section: 'tech' },
     };
+    function cdLoadPlatformPairs() {
+      try { const o = JSON.parse(localStorage.getItem('valura_integrations_v1')); if (o && Array.isArray(o.pairs)) return o.pairs; } catch (e) { }
+      return [];
+    }
     function cdLoadEvents() {
       let s = null;
       try { s = EvStore.load(); } catch (e) { s = null; }
@@ -27407,7 +27474,21 @@
       if (hs.awaiting > 0) push(2, 'cx', cdPlural(hs.awaiting, 'customer') + ' waiting for a reply', 'Open the support hub');
       if (js.stuckTotal > 0) push(2, 'cx', cdPlural(js.stuckTotal, 'customer') + ' stuck in their journey', js.stuckStates[0] ? js.stuckStates[0].name + ' is the biggest group (' + js.stuckStates[0].count + ')' : '');
 
-      const order = { campaigns: 0, events: 1, partners: 2, cx: 3 };
+      /* Tech: paired Zoom and Luma events with setup steps still missing */
+      cdLoadPlatformPairs().forEach((pr) => {
+        const sn = pr.snap || {};
+        const startIso = (sn.zoom && sn.zoom.startTime) || (sn.luma && sn.luma.startAt);
+        if (!startIso) return;
+        const days = evDiff(String(startIso).slice(0, 10), evToday);
+        if (days < 0 || days > 14) return;
+        const miss = ((sn.zoom && sn.zoom.setup) || []).concat((sn.luma && sn.luma.setup) || []).filter((c) => c.state === 'missing');
+        const name = pr.label || (sn.zoom && sn.zoom.topic) || (sn.luma && sn.luma.name) || 'Paired event';
+        const when = days === 0 ? 'Today' : 'D-' + days;
+        if (miss.length) push(days <= 3 ? 3 : 2, 'tech', name + ': ' + cdPlural(miss.length, 'Zoom or Luma setup step') + ' missing', miss.slice(0, 2).map((c) => c.label).join(', ') + ' · ' + when + ' · as of the last sync');
+        if (days <= 3 && pr.syncedAt && now - new Date(pr.syncedAt).getTime() > 86400000) push(2, 'tech', name + ': sync Zoom and Luma again', 'Last synced more than a day ago · ' + when);
+      });
+
+      const order = { campaigns: 0, events: 1, partners: 2, cx: 3, tech: 4 };
       const seen = {};
       items.forEach((it) => { seen[it.area + it.sev] = (seen[it.area + it.sev] || 0); it.rank = seen[it.area + it.sev]++; });
       items.sort((a, b) => (b.sev - a.sev) || (a.rank - b.rank) || (order[a.area] - order[b.area]));
@@ -30389,7 +30470,364 @@
     // Tech home — Phase 6 (Rehearsal & Tech Readiness) and Phase 7 (Launch
     // Day & Recording), split out of the Product Launch flow into their own
     // nav section since they're run-of-show/AV checks rather than marketing steps.
-    function TechHomeView({ onOpen }) {
+    /* ---------- Tech: Zoom Webinars and Luma (live, read only, through the Netlify backend) ---------- */
+    const ZL_KEY = 'valura_integrations_v1';
+    const ZL_CODE_KEY = 'valura_hub_code';
+    function zlLoad() {
+      try { const o = JSON.parse(localStorage.getItem(ZL_KEY)); if (o && Array.isArray(o.pairs)) return o; } catch (e) { }
+      return { pairs: [] };
+    }
+    function zlSave(s) { try { localStorage.setItem(ZL_KEY, JSON.stringify(s)); } catch (e) { } }
+    function zlCode() { try { return sessionStorage.getItem(ZL_CODE_KEY) || ''; } catch (e) { return ''; } }
+    async function zlApi(path) {
+      const code = zlCode();
+      let r;
+      try { r = await fetch('/api/integrations/' + path, { headers: code ? { 'x-hub-code': code } : {}, cache: 'no-store' }); }
+      catch (e) { const er = new Error('Could not reach the backend. This works on the deployed Netlify site, not from a local file.'); er.offline = true; throw er; }
+      let j = null; try { j = await r.json(); } catch (e) { }
+      if (!r.ok) {
+        const er = new Error((j && j.error) || (r.status === 404 ? 'The integration backend was not found. Deploy the netlify folder with the latest files.' : 'Request failed (' + r.status + ')'));
+        er.needsCode = !!(j && j.needsCode); er.notConfigured = !!(j && j.notConfigured);
+        throw er;
+      }
+      return j;
+    }
+    function zlWhen(iso) {
+      if (!iso) return 'No date';
+      const d = new Date(iso);
+      return isNaN(d.getTime()) ? 'No date' : d.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+    }
+    function zlDay(iso) { return iso ? String(iso).slice(0, 10) : todayISODate(); }
+    function zlSortEvents(items, key) {
+      const now = Date.now();
+      const t = (x) => Date.parse(x[key] || '') || 0;
+      const up = items.filter((x) => t(x) >= now).sort((a, b) => t(a) - t(b));
+      const past = items.filter((x) => t(x) < now).sort((a, b) => t(b) - t(a));
+      return up.concat(past);
+    }
+    const ZL_SETUP_STEPS = {
+      zoom: [
+        'Sign in at marketplace.zoom.us as an account admin, then choose Develop, Build App, Server-to-Server OAuth.',
+        'Copy the Account ID, Client ID and Client Secret from the app page.',
+        'On the Scopes tab add the read scopes for webinars, webinar registrants, webinar panelists, webinar reports (participants, Q&A and polls) and users. They are named like webinar:read:admin and report:read:admin, or the granular versions of the same.',
+        'Activate the app.',
+        'In Netlify open Project configuration, Environment variables, and add ZOOM_ACCOUNT_ID, ZOOM_CLIENT_ID and ZOOM_CLIENT_SECRET. Optionally add ZOOM_HOST_EMAIL, the email of the licensed webinar host.',
+        'Trigger a new deploy so the backend picks the keys up, then press Test connection here.',
+      ],
+      luma: [
+        'The Luma API needs a Luma Plus plan on the calendar that owns the events.',
+        'In your Luma calendar settings open the Developer section and create an API key. Copy it once, it is only shown once.',
+        'In Netlify open Project configuration, Environment variables, and add LUMA_API_KEY.',
+        'Trigger a new deploy so the backend picks the key up, then press Test connection here.',
+      ],
+    };
+
+    function ZlPlatformCard({ kind, st, testing, onTest, listState, onRefresh }) {
+      const [steps, setSteps] = useState(false);
+      const name = kind === 'zoom' ? 'Zoom Webinars' : 'Luma';
+      const blurb = kind === 'zoom' ? 'Webinar setup, registrants, attendance, Q&A and polls.' : 'Event page setup, guest list and check-ins.';
+      let tone = 'off', label = 'Checking';
+      if (st) {
+        if (!st.configured) { tone = 'off'; label = 'Not set up'; }
+        else if (st.ok === true) { tone = 'ok'; label = 'Connected'; }
+        else if (st.ok === false) { tone = 'bad'; label = 'Needs attention'; }
+        else { tone = 'warn'; label = 'Keys found, not tested'; }
+      }
+      return (
+        <div className="cx-panel zl-card">
+          <div className="zl-card-h">
+            <span className={'zl-logo ' + kind}><Icon name={kind === 'zoom' ? 'video' : 'calendar'} size={18} /></span>
+            <div className="zl-card-t"><h3 className="cx-panel-title">{name}</h3><p className="zl-blurb">{blurb}</p></div>
+            <span className={'zl-state ' + tone}><i />{label}</span>
+          </div>
+          {st && !st.configured && (
+            <div className="cx-note">Add {st.missing.map((m) => <code key={m} className="zl-code">{m}</code>)} in Netlify, then deploy again.</div>
+          )}
+          {st && st.ok === true && <div className="zl-ok-line">Signed in as <b>{st.as}</b>{st.note ? '. ' + st.note : ''}</div>}
+          {st && st.ok === false && <div className="cx-note zl-bad">{st.error}</div>}
+          {listState && listState.error && st && st.configured && <div className="cx-note zl-bad">{listState.error}</div>}
+          <div className="cx-head-actions" style={{ marginTop: 12 }}>
+            <button type="button" className="cx-btn cx-btn-primary" disabled={!st || !st.configured || testing} onClick={onTest}>{testing ? 'Testing...' : 'Test connection'}</button>
+            {st && st.configured && <button type="button" className="cx-btn" disabled={listState && listState.loading} onClick={onRefresh}>{listState && listState.loading ? 'Loading...' : 'Refresh ' + (kind === 'zoom' ? 'webinars' : 'events')}</button>}
+            <button type="button" className="cx-btn" onClick={() => setSteps((v) => !v)}>{steps ? 'Hide setup steps' : 'Setup steps'}</button>
+          </div>
+          {steps && <ol className="zl-steps">{ZL_SETUP_STEPS[kind].map((s, i) => <li key={i}>{s}</li>)}</ol>}
+        </div>
+      );
+    }
+
+    function ZlChecks({ title, checks }) {
+      if (!checks || !checks.length) return null;
+      const ok = checks.filter((c) => c.state === 'ok').length;
+      const missing = checks.filter((c) => c.state === 'missing').length;
+      return (
+        <div className="zl-checks">
+          <div className="zl-checks-h"><b>{title}</b><span className={'zl-sum' + (missing ? ' warn' : ' ok')}>{ok} of {checks.length} ready{missing ? ', ' + missing + ' missing' : ''}</span></div>
+          {checks.map((c) => (
+            <div key={c.key} className={'zl-check ' + c.state}>
+              <span className="zl-tick">{c.state === 'ok' ? <Icon name="check" size={12} /> : c.state === 'missing' ? <Icon name="x" size={12} /> : '?'}</span>
+              <span className="zl-check-t">{c.label}{c.note ? <small>{c.note}</small> : null}</span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function ZlResults({ pair, mem, partners, onImport, importMsg }) {
+      const z = pair.snap && pair.snap.zoom, l = pair.snap && pair.snap.luma;
+      if (!z && !l) return null;
+      const v = (x, suf) => (x === null || x === undefined ? 'n/a' : x + (suf || ''));
+      const zc = (z && z.counts) || {}, lc = (l && l.counts) || {};
+      const rows = [
+        ['Registered', l ? v(lc.registered) : 'n/a', z ? v(zc.registered) : 'n/a'],
+        ['Waiting for approval', l ? v(lc.pending) : 'n/a', z ? v(zc.pending) : 'n/a'],
+        ['Waitlist', l ? v(lc.waitlist) : 'n/a', 'n/a'],
+        ['Attended (Luma check-in, Zoom joined)', l ? v(lc.checkedIn) : 'n/a', z ? v(zc.attended) : 'n/a'],
+        ['Attendance rate', l ? v(lc.attendanceRate, '%') : 'n/a', z ? v(zc.attendanceRate, '%') : 'n/a'],
+        ['Joined without registering', 'n/a', z ? v(zc.walkIns) : 'n/a'],
+        ['Average time on webinar', 'n/a', z ? v(zc.avgDurationMin, ' min') : 'n/a'],
+        ['Left in the first half', 'n/a', z ? v(zc.leftInFirstHalfPct, '%') : 'n/a'],
+        ['Questions asked', 'n/a', z ? v(zc.questions) : 'n/a'],
+        ['Poll questions', 'n/a', z ? v(zc.pollQuestions) : 'n/a'],
+      ];
+      const zErr = z ? Object.entries(z.errors || {}) : [];
+      const lErr = l ? Object.entries(l.errors || {}) : [];
+      const qa = (z && z.qa) || [];
+      const polls = (z && z.polls) || [];
+      return (
+        <div className="zl-res">
+          <div className="zl-tablewrap">
+            <table className="zl-table">
+              <thead><tr><th>Metric</th><th>Luma</th><th>Zoom</th></tr></thead>
+              <tbody>{rows.map((r) => <tr key={r[0]}><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody>
+            </table>
+          </div>
+          {z && !z.ended && <div className="cx-note">Zoom attendance, Q&A and polls appear after the webinar has ended.</div>}
+          {(zErr.length > 0 || lErr.length > 0) && (
+            <div className="cx-note zl-bad">
+              {zErr.map(([k, m]) => <div key={'z' + k}>Zoom {k}: {m}</div>)}
+              {lErr.map(([k, m]) => <div key={'l' + k}>Luma {k}: {m}</div>)}
+            </div>
+          )}
+          <div className="zl-two">
+            <ZlChecks title="Zoom webinar setup" checks={z && z.setup} />
+            <ZlChecks title="Luma event setup" checks={l && l.setup} />
+          </div>
+          {qa.length > 0 && (
+            <div className="zl-block">
+              <div className="cx-sub-title" style={{ marginTop: 0 }}>Questions from the webinar ({qa.length})</div>
+              {qa.slice(0, 8).map((q, i) => (
+                <div key={i} className="zl-q"><div className="zl-q-t">{q.question}</div><div className="zl-q-s">{q.name || 'Anonymous'} · {q.answer ? 'Answered' : 'Not answered'}</div></div>
+              ))}
+              {qa.length > 8 && <div className="zl-q-s">and {qa.length - 8} more</div>}
+            </div>
+          )}
+          {polls.length > 0 && (
+            <div className="zl-block">
+              <div className="cx-sub-title" style={{ marginTop: 0 }}>Poll results</div>
+              {polls.map((p, i) => (
+                <div key={i} className="zl-poll">
+                  <div className="zl-q-t">{p.question} <span className="zl-q-s">({p.respondents} answered)</span></div>
+                  {p.answers.slice(0, 5).map((a) => (
+                    <div key={a.answer} className="zl-bar"><span className="zl-bar-l">{a.answer}</span><span className="zl-bar-track"><span style={{ width: Math.round((a.count / Math.max(1, p.respondents)) * 100) + '%' }} /></span><span className="zl-bar-n">{a.count}</span></div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="cx-head-actions" style={{ marginTop: 14 }}>
+            <button type="button" className="cx-btn cx-btn-primary" disabled={!mem} onClick={onImport} title={mem ? '' : 'Sync again in this session to load the lists'}>Add to Phase 5 registrations</button>
+            <button type="button" className="cx-btn" disabled={!mem} onClick={() => zlDownloadCsv(pair, mem)}><Icon name="download" size={13} /> Download attendance CSV</button>
+          </div>
+          {!mem && <div className="zl-q-s" style={{ marginTop: 6 }}>The guest lists are not kept after a refresh, so press Sync now once more before importing.</div>}
+          {importMsg && <div className="cx-note">{importMsg}</div>}
+        </div>
+      );
+    }
+
+    function zlRowsFromMem(mem, partners) {
+      const z = mem.zoom, l = mem.luma;
+      const attended = new Set();
+      ((z && z.attendees) || []).forEach((a) => { if (a.email) attended.add(a.email); });
+      ((l && l.guests) || []).forEach((g) => { if (g.checkedInAt && g.email) attended.add(g.email); });
+      const rows = [];
+      const seen = new Map();
+      const partnerFor = (src) => {
+        const s = String(src || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (!s) return null;
+        return (partners || []).find((p) => { const n = String(p.name || '').toLowerCase().replace(/[^a-z0-9]/g, ''); return n && (s.includes(n) || n.includes(s)); }) || null;
+      };
+      const add = (row) => {
+        if (row.email && seen.has(row.email)) return;
+        if (row.email) seen.set(row.email, true);
+        rows.push(row);
+      };
+      ((l && l.guests) || []).filter((g) => g.status === 'approved' || g.status === 'session').forEach((g) => add({ name: g.name, email: g.email, registeredAt: zlDay(g.registeredAt), source: 'Luma', attended: !!g.email && attended.has(g.email) }));
+      ((z && z.registrants) || []).filter((r) => r.status === 'approved').forEach((r) => {
+        const p = partnerFor(r.source);
+        add({ name: r.name, email: r.email, registeredAt: zlDay(r.registeredAt), source: p ? 'Partner Webinar' : 'Webinar', partnerName: p ? p.name : '', notes: r.source ? 'Zoom source: ' + r.source : '', attended: !!r.email && attended.has(r.email) });
+      });
+      return rows;
+    }
+
+    function zlDownloadCsv(pair, mem) {
+      const q = (s) => '"' + String(s === null || s === undefined ? '' : s).replace(/"/g, '""') + '"';
+      const lines = [['Platform', 'Name', 'Email', 'Registered', 'Attended', 'Minutes on webinar'].map(q).join(',')];
+      const z = mem.zoom, l = mem.luma;
+      const zAtt = new Map(); ((z && z.attendees) || []).forEach((a) => { if (a.email) zAtt.set(a.email, a); });
+      ((l && l.guests) || []).filter((g) => g.status === 'approved' || g.status === 'session').forEach((g) => lines.push(['Luma', g.name, g.email, g.registeredAt || '', g.checkedInAt ? 'Yes' : 'No', ''].map(q).join(',')));
+      ((z && z.registrants) || []).filter((r) => r.status === 'approved').forEach((r) => { const a = zAtt.get(r.email); lines.push(['Zoom', r.name, r.email, r.registeredAt || '', a ? 'Yes' : (z.ended ? 'No' : ''), a ? a.durationMin : ''].map(q).join(',')); });
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = (pair.label || 'event').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '-attendance.csv';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function TechPlatforms({ partners, onImportRegistrations }) {
+      const [state, setState] = useState(zlLoad);
+      const [status, setStatus] = useState(null);
+      const [fatal, setFatal] = useState('');
+      const [needsCode, setNeedsCode] = useState(false);
+      const [codeInput, setCodeInput] = useState('');
+      const [testing, setTesting] = useState({});
+      const [lists, setLists] = useState({ zoom: { items: [], loading: false, error: '' }, luma: { items: [], loading: false, error: '' } });
+      const [busy, setBusy] = useState({});
+      const [pairErr, setPairErr] = useState({});
+      const [mems, setMems] = useState({});
+      const [importMsgs, setImportMsgs] = useState({});
+      const stateRef = useRef(state);
+      stateRef.current = state;
+
+      const persist = (next) => { setState(next); zlSave(next); };
+      const patchPair = (id, patch) => persist({ ...stateRef.current, pairs: stateRef.current.pairs.map((p) => (p.id === id ? { ...p, ...patch } : p)) });
+
+      const loadList = async (kind) => {
+        setLists((s) => ({ ...s, [kind]: { ...s[kind], loading: true, error: '' } }));
+        try {
+          const j = await zlApi(kind === 'zoom' ? 'zoom/webinars' : 'luma/events');
+          setLists((s) => ({ ...s, [kind]: { items: j.items || [], loading: false, error: '' } }));
+        } catch (e) {
+          if (e.needsCode) setNeedsCode(true);
+          setLists((s) => ({ ...s, [kind]: { ...s[kind], loading: false, error: e.message } }));
+        }
+      };
+      const loadStatus = async () => {
+        try {
+          const st = await zlApi('status');
+          setStatus(st); setFatal('');
+          if (st.zoom.configured) loadList('zoom');
+          if (st.luma.configured) loadList('luma');
+        } catch (e) {
+          if (e.needsCode) { setNeedsCode(true); setFatal(''); } else setFatal(e.message);
+        }
+      };
+      useEffect(() => { loadStatus(); }, []);
+
+      const test = async (kind) => {
+        setTesting((t) => ({ ...t, [kind]: true }));
+        try {
+          const st = await zlApi('status?test=' + kind);
+          setStatus((prev) => ({ ...(prev || {}), ...st, [kind === 'zoom' ? 'luma' : 'zoom']: (prev || st)[kind === 'zoom' ? 'luma' : 'zoom'] }));
+          if (st[kind].ok) loadList(kind);
+        } catch (e) { if (e.needsCode) setNeedsCode(true); else setFatal(e.message); }
+        setTesting((t) => ({ ...t, [kind]: false }));
+      };
+
+      const addPair = () => persist({ ...state, pairs: [...state.pairs, { id: 'pr' + Date.now().toString(36), label: '', zoomId: '', zoomTopic: '', lumaId: '', lumaName: '', snap: null, syncedAt: '' }] });
+      const removePair = (id) => { persist({ ...state, pairs: state.pairs.filter((p) => p.id !== id) }); setMems((m) => { const n = { ...m }; delete n[id]; return n; }); };
+
+      const sync = async (pair) => {
+        setBusy((b) => ({ ...b, [pair.id]: true })); setPairErr((e) => ({ ...e, [pair.id]: [] }));
+        const errs = [];
+        const [zr, lr] = await Promise.all([
+          pair.zoomId ? zlApi('zoom/sync?id=' + encodeURIComponent(pair.zoomId)).catch((e) => { if (e.needsCode) setNeedsCode(true); errs.push('Zoom: ' + e.message); return null; }) : null,
+          pair.lumaId ? zlApi('luma/sync?id=' + encodeURIComponent(pair.lumaId)).catch((e) => { if (e.needsCode) setNeedsCode(true); errs.push('Luma: ' + e.message); return null; }) : null,
+        ]);
+        const strip = (r, keys) => { if (!r) return null; const c = { ...r }; keys.forEach((k) => { delete c[k]; }); if (c.qa) c.qa = c.qa.slice(0, 50); return c; };
+        const prev = pair.snap || {};
+        const snap = { zoom: zr ? strip(zr, ['registrants', 'attendees']) : (pair.zoomId ? prev.zoom || null : null), luma: lr ? strip(lr, ['guests']) : (pair.lumaId ? prev.luma || null : null) };
+        setMems((m) => ({ ...m, [pair.id]: { zoom: zr || (m[pair.id] && m[pair.id].zoom) || null, luma: lr || (m[pair.id] && m[pair.id].luma) || null } }));
+        patchPair(pair.id, { snap, syncedAt: (zr || lr) ? new Date().toISOString() : pair.syncedAt });
+        setPairErr((e) => ({ ...e, [pair.id]: errs }));
+        setBusy((b) => ({ ...b, [pair.id]: false }));
+      };
+
+      const doImport = (pair) => {
+        const mem = mems[pair.id]; if (!mem) return;
+        const rows = zlRowsFromMem(mem, partners);
+        const r = onImportRegistrations(rows);
+        setImportMsgs((m) => ({ ...m, [pair.id]: 'Added ' + r.added + ' new and updated ' + r.updated + ' in Phase 5 registrations. ' + r.attended + ' marked as attended.' }));
+      };
+
+      const saveCode = () => { try { sessionStorage.setItem(ZL_CODE_KEY, codeInput.trim()); } catch (e) { } setNeedsCode(false); setCodeInput(''); loadStatus(); };
+
+      const zOpts = zlSortEvents(lists.zoom.items, 'startTime');
+      const lOpts = zlSortEvents(lists.luma.items, 'startAt');
+
+      return (
+        <div className="cx-tab-body">
+          {needsCode && (
+            <div className="cx-panel">
+              <h3 className="cx-panel-title">Enter the hub access code</h3>
+              <p className="cx-panel-sub">The backend is protected with HUB_ACCESS_CODE. Enter it to use the Zoom and Luma connections. It is kept for this browser tab only.</p>
+              <div className="cx-head-actions"><input className="zl-input" type="password" value={codeInput} onChange={(e) => setCodeInput(e.target.value)} placeholder="Access code" aria-label="Hub access code" /><button type="button" className="cx-btn cx-btn-primary" onClick={saveCode} disabled={!codeInput.trim()}>Unlock</button></div>
+            </div>
+          )}
+          {fatal && <div className="cx-note zl-bad">{fatal}</div>}
+          <div className="zl-cards">
+            <ZlPlatformCard kind="zoom" st={status && status.zoom} testing={!!testing.zoom} onTest={() => test('zoom')} listState={lists.zoom} onRefresh={() => loadList('zoom')} />
+            <ZlPlatformCard kind="luma" st={status && status.luma} testing={!!testing.luma} onTest={() => test('luma')} listState={lists.luma} onRefresh={() => loadList('luma')} />
+          </div>
+
+          <div className="cx-panel">
+            <div className="cx-panel-row">
+              <div><h3 className="cx-panel-title">Paired events</h3><p className="cx-panel-sub">Pair the Luma event page with its Zoom webinar. Sync reads registrations, attendance, setup status, questions and polls. Nothing is changed in Zoom or Luma.</p></div>
+              <button type="button" className="cx-btn cx-btn-primary" onClick={addPair}><Icon name="plus" size={13} /> Pair an event</button>
+            </div>
+            {state.pairs.length === 0 && <div className="cx-empty-line">No events paired yet. Press Pair an event, then pick the Luma event and the Zoom webinar.</div>}
+            {state.pairs.map((pair) => {
+              const errs = pairErr[pair.id] || [];
+              const canSync = (pair.zoomId || pair.lumaId) && !busy[pair.id];
+              return (
+                <div key={pair.id} className="zl-pair">
+                  <div className="zl-pair-h">
+                    <input className="zl-input zl-label" value={pair.label} onChange={(e) => patchPair(pair.id, { label: e.target.value })} placeholder="Name for this event, e.g. Pre-IPO webinar" aria-label="Event name" />
+                    <button type="button" className="cx-icon-btn" title="Remove this pairing" onClick={() => removePair(pair.id)}><Icon name="trash" size={14} /></button>
+                  </div>
+                  <div className="zl-pick">
+                    <label className="zl-field"><span>Luma event</span>
+                      <select className="zl-input" value={pair.lumaId} onChange={(e) => { const o = lOpts.find((x) => x.id === e.target.value); patchPair(pair.id, { lumaId: e.target.value, lumaName: o ? o.name : '', label: pair.label || (o ? o.name : '') }); }}>
+                        <option value="">{lists.luma.items.length || (status && status.luma && status.luma.configured) ? 'Not paired' : 'Connect Luma first'}</option>
+                        {pair.lumaId && !lOpts.some((x) => x.id === pair.lumaId) && <option value={pair.lumaId}>{pair.lumaName || pair.lumaId}</option>}
+                        {lOpts.map((x) => <option key={x.id} value={x.id}>{x.name} · {zlWhen(x.startAt)}</option>)}
+                      </select>
+                    </label>
+                    <label className="zl-field"><span>Zoom webinar</span>
+                      <select className="zl-input" value={pair.zoomId} onChange={(e) => { const o = zOpts.find((x) => x.id === e.target.value); patchPair(pair.id, { zoomId: e.target.value, zoomTopic: o ? o.topic : '', label: pair.label || (o ? o.topic : '') }); }}>
+                        <option value="">{lists.zoom.items.length || (status && status.zoom && status.zoom.configured) ? 'Not paired' : 'Connect Zoom first'}</option>
+                        {pair.zoomId && !zOpts.some((x) => x.id === pair.zoomId) && <option value={pair.zoomId}>{pair.zoomTopic || pair.zoomId}</option>}
+                        {zOpts.map((x) => <option key={x.id} value={x.id}>{x.topic} · {zlWhen(x.startTime)}</option>)}
+                      </select>
+                    </label>
+                    <div className="zl-sync">
+                      <button type="button" className="cx-btn cx-btn-primary" disabled={!canSync} onClick={() => sync(pair)}>{busy[pair.id] ? 'Syncing...' : 'Sync now'}</button>
+                      <span className="zl-q-s">{pair.syncedAt ? 'Last synced ' + zlWhen(pair.syncedAt) : 'Not synced yet'}</span>
+                    </div>
+                  </div>
+                  {errs.length > 0 && <div className="cx-note zl-bad">{errs.map((m, i) => <div key={i}>{m}</div>)}</div>}
+                  <ZlResults pair={pair} mem={mems[pair.id]} partners={partners} importMsg={importMsgs[pair.id]} onImport={() => doImport(pair)} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    function TechHomeView({ onOpen, partners, onImportRegistrations }) {
+      const [tab, setTab] = useState('platforms');
       return (
         <div className="wrap">
           <header className="page">
@@ -30397,20 +30835,29 @@
               <div>
                 <div className="eyebrow">Marketing Management Hub · Launch Automation</div>
                 <div className="title-row"><h1>Tech</h1></div>
-                <p className="subtitle">Rehearsal, technical readiness and launch-day recording — the run-of-show checks right before and during go-live.</p>
+                <p className="subtitle">Webinar platforms, rehearsal and launch-day readiness. Connect Zoom Webinars and Luma, then run the checks right before and during go-live.</p>
               </div>
             </div>
           </header>
-          <div className="phase-grid">
-            {TECH_PHASES.map((p) => (
-              <div key={p.id} className="phase-card clickable disabled" onClick={() => onOpen(p.id)}>
-                <div className="num">PHASE {p.num}</div>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-                <span className="pill soon">Coming soon</span>
-              </div>
-            ))}
+          <div className="ev-navrow">
+            <nav className="cx-tabs" role="tablist" aria-label="Tech sections">
+              <button type="button" role="tab" aria-selected={tab === 'platforms'} className={'cx-tab' + (tab === 'platforms' ? ' active' : '')} onClick={() => setTab('platforms')}><Icon name="video" size={16} /> Zoom and Luma</button>
+              <button type="button" role="tab" aria-selected={tab === 'phases'} className={'cx-tab' + (tab === 'phases' ? ' active' : '')} onClick={() => setTab('phases')}>Rehearsal and launch day</button>
+            </nav>
           </div>
+          {tab === 'platforms' && <TechPlatforms partners={partners} onImportRegistrations={onImportRegistrations} />}
+          {tab === 'phases' && (
+            <div className="phase-grid">
+              {TECH_PHASES.map((p) => (
+                <div key={p.id} className="phase-card clickable disabled" onClick={() => onOpen(p.id)}>
+                  <div className="num">PHASE {p.num}</div>
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
+                  <span className="pill soon">Coming soon</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       );
     }
@@ -45362,6 +45809,15 @@ const LEGACY_UNSAMPLE = [
       const { isDark, toggle } = useTheme();
 
       const launchEscN = computeDashboardEscalations({ phase1, contentItems: contentPhase.items || [], phase4, phase5, partnerItems: partners.items || [] }).length;
+      // Zoom and Luma registrants (from the Tech section) land in the same list as CSV imports.
+      const importRegistrationsFromPlatform = (rows) => {
+        const merged = mergeImportedRegistrations((registrationsStateRef.current.items || []), rows, 'Webinar');
+        commitRegistrations({ items: merged.items }, { immediate: true });
+        const linked = linkRegistrationsToInvitees((inviteesStateRef.current.items || []), merged.items);
+        if (linked.changed) commitInvitees({ items: linked.items }, { immediate: true });
+        return { added: merged.added, updated: merged.updated, attended: merged.attended };
+      };
+
       let content;
       if (view === 'home') {
         const stat = { phase1: status, phase2: statusContent, phase3: statusDesign, phase4: statusPhase4, phase5: statusPhase5 };
@@ -45479,7 +45935,7 @@ const LEGACY_UNSAMPLE = [
                     onNavigate={(id) => { if (id === 'phase6' || id === 'phase7') setView(id); else if (id === 'cx') setSection('cx'); else { setSection('launch'); setView(id); } }}
                   />
                 ) : (
-                  <TechHomeView onOpen={(id) => setView(id)} />
+                  <TechHomeView onOpen={(id) => setView(id)} partners={partners.items || []} onImportRegistrations={importRegistrationsFromPlatform} />
                 )
               )}
               {section === 'process' && (
