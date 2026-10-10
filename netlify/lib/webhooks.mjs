@@ -1,7 +1,7 @@
 // Checks and reads the webhooks from Resend (email) and Interakt (WhatsApp).
 // Both sign the exact bytes they send, so the raw body text must be used as received.
 
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, createHash, timingSafeEqual } from 'node:crypto';
 
 const eq = (a, b) => { const x = Buffer.from(String(a)); const y = Buffer.from(String(b)); return x.length === y.length && timingSafeEqual(x, y); };
 
@@ -62,4 +62,29 @@ export function interaktEvent(evt) {
   }
   if (!out || !out.id || (!out.phone && !out.contactId)) return null;
   return out;
+}
+
+/* LinkedIn tells you about replies and accepted invitations by email. Zapier forwards those emails here.
+   Gives back a hub event, or null when the email is not about a person we can name. */
+const liClean = (v, n) => String(v === undefined || v === null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, n || 200);
+export function linkedinEvent(b) {
+  b = b && typeof b === 'object' ? b : {};
+  const subject = liClean(b.subject, 300).replace(/^(re|fwd?):\s*/i, '');
+  const from = liClean(b.from || b.sender, 300);
+  const text = liClean(b.snippet || b.text || b.body || b.preview || b.message, 400);
+  const accepted = /accepted your (invitation|connection|request)/i.test(subject) || String(b.kind || '').toLowerCase() === 'accepted';
+  let name = liClean(b.name, 120);
+  if (!name) {
+    let m = /^\s*"?([^"<]+?)"?\s+via\s+LinkedIn\b/i.exec(from);
+    if (!m) m = /^(.+?)\s+(?:sent you (?:a )?(?:new )?message|replied to (?:your message|you)|messaged you|accepted your (?:invitation|connection|request)|has replied)/i.exec(subject);
+    if (!m) m = /(?:new message from|message from|reply from|replied:?)\s+(.+?)(?:\s+[|:]\s|\s+-\s|$)/i.exec(subject);
+    name = m ? liClean(m[1], 120) : '';
+  }
+  name = name.replace(/\s*\([^)]*\)\s*$/, '').replace(/[.,:;!]+$/, '').trim();
+  if (name.length < 2 || /@|^linkedin$/i.test(name)) return null;
+  const when = new Date(b.at || b.date || b.received_at || b.receivedAt || Date.now());
+  const at = isNaN(when.getTime()) ? new Date().toISOString() : when.toISOString();
+  const kind = accepted ? 'accepted' : 'reply';
+  const key = liClean(b.messageId || b.message_id || b.id, 120) || createHash('sha1').update([kind, name, subject, String(b.at || b.date || b.received_at || b.receivedAt || '')].join('|')).digest('hex').slice(0, 20);
+  return { id: 'li:' + key, src: 'linkedin', kind, name, at, text: kind === 'reply' ? text.slice(0, 300) : '', subject: subject.slice(0, 200) };
 }
