@@ -1,13 +1,24 @@
 // Lets the original serverless handlers (written as handler(req, res) for Vercel)
 // run unchanged on Netlify, which calls functions with a standard Request and
 // expects a standard Response.
+//
+// adapt(handler, { gate: true }) also requires the hub access code (see gate.mjs) before the handler runs.
+// Use it for every route that sends a message or reveals data.
 
-export function adapt(handler) {
+import { gate } from './gate.mjs';
+
+export function adapt(handler, opts = {}) {
   return async (request) => {
+    if (opts.gate && request.method !== 'OPTIONS') {
+      const blocked = gate(request.headers);
+      if (blocked) return blocked;
+    }
     const url = new URL(request.url);
     let body;
+    let rawBody = '';
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       const raw = await request.text();
+      rawBody = raw;
       if (raw) {
         try { body = JSON.parse(raw); } catch (e) { body = raw; }
       }
@@ -19,6 +30,7 @@ export function adapt(handler) {
       url: url.pathname + url.search,
       headers,
       body,
+      rawBody,
       query: Object.fromEntries(url.searchParams),
     };
 

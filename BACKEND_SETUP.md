@@ -87,3 +87,68 @@ In Netlify open Functions, and check that `digest-daily` shows a schedule. Sched
 - The rules exist twice (in the app and in `netlify/lib/readiness.js`). If you change one, change the other.
 - The Microsoft client secret expires. When it does, sending fails until you create a new secret and update `MS_CLIENT_SECRET`.
 - To test with Resend instead of Outlook, set `MAIL_PROVIDER=resend` plus the Resend values in `.env.example`.
+
+## Canva design (describe a design in Studio, Claude makes it in Canva)
+
+In Studio, open the Canva tab, then Design with a prompt. The browser sends the description to `/.netlify/functions/canva-design-background`. That function asks Claude to design it with the Canva connector, exports a PNG, and keeps it in Netlify Blobs. The Studio checks `/api/canva-design-status` every few seconds and shows the picture when it is ready.
+
+Files: `netlify/functions/canva-design-background.mjs`, `canva-design-status.mjs`, `canva-auth-start.mjs`, `canva-auth-callback.mjs`, `canva-auth-status.mjs` and `netlify/lib/canva-auth.mjs`. No new packages are needed (`@netlify/blobs` is already used).
+
+### Settings (Netlify, Site configuration, Environment variables, mark as secret)
+
+| Setting | What it is |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | Your Anthropic API key. Already listed above for the nudge job. |
+| `DESIGN_ACCESS_CODE` | Any long random string. People type it once per browser session in Studio. Without it the service refuses every request, so nobody outside the team can spend your credits. |
+| `DESIGN_DAILY_LIMIT` | Optional. Designs allowed per day. Default 30. |
+| `DESIGN_FOLDER_ID` | Optional. Canva folder id that new designs are filed into. The Valura Templates folder is `FAHXCuuZDbg`. |
+| `CANVA_MCP_URL` | Optional. Defaults to `https://mcp.canva.com/mcp`. |
+| `DESIGN_MODEL` | Optional. Defaults to `claude-sonnet-4-5`. |
+| `CANVA_MCP_TOKEN` | Optional fallback only. Normally leave it out; the one-time sign-in below stores and renews the token for you. |
+
+### One-time Canva sign-in (an admin does this once)
+
+1. Set `ANTHROPIC_API_KEY` and `DESIGN_ACCESS_CODE` in Netlify, then deploy.
+2. Open `https://<your-site>/api/canva-auth-start`, type the design access code, and press Continue to Canva.
+3. Sign in on Canva's own page and approve. Canva sends you back to a page that says "Canva is connected".
+
+The token and its renewal token are kept in Netlify Blobs and renewed automatically. Studio's Canva tab shows "Ready" when the key, the code and the Canva sign-in are all in place, and lists what is missing otherwise. Repeat step 2 only if the sign-in is revoked or expires.
+
+### What is safe, and what is not finished
+
+- Claude can only use seven Canva tools here: create a design, check the job, list export formats, export, read, file into a folder, and find folders. It cannot edit or delete existing designs.
+- The access code, API key and Canva token never reach the browser. Studio only learns yes or no for each setting.
+- **The Canva sign-in is untested against real Canva.** The sign-in pages were tested with a mock. Canva's server may behave differently (registration, scopes, or whether it accepts the token through Anthropic's connector). If the first sign-in fails, the page says what Canva replied.
+- **Not tested against the real services.** The functions were tested with mocked Anthropic and Canva responses. The first live run needs your keys and should be watched.
+- Each design uses Anthropic API credits (billed to your Anthropic account) and one Canva AI generation.
+
+### Until this is set up
+
+Studio shows "Backend not set up". Everything else in the Canva tab works: Copy request for Claude gives a ready brief to paste into a Claude chat that has Canva connected, the Template library opens Canva's ready-made templates beside Studio, and Brand brief and import brings finished files back.
+
+## Reach on Netlify: delivery tracking, WhatsApp and Instagram leads
+
+Reach adds these addresses. They run on Netlify with no extra service (waiting items are kept in Netlify Blobs).
+
+| Address | Who calls it | Protection |
+| --- | --- | --- |
+| `/api/resend-webhook` | Resend, when an email is delivered, opened, clicked, bounced or marked as spam | Signature checked with `RESEND_WEBHOOK_SECRET` |
+| `/api/interakt-webhook` | Interakt, for WhatsApp sent, delivered, read, failed and replies | Signature checked with `INTERAKT_WEBHOOK_SECRET` |
+| `/api/hub-events` | The hub, to read and clear waiting delivery updates | Hub access code |
+| `/api/instagram-leads` | Interakt, ManyChat or Zapier send leads in. The hub reads and clears them. | Sending in needs `INBOUND_KEY`. Reading needs the hub access code. |
+| `/api/send-whatsapp` | The hub, to send an approved Interakt template | Hub access code |
+
+`/api/send-mail`, `/api/claude-action` and `/api/follow-up-cron` now need the hub access code too. The confirm link partners tap (`/api/confirm-hop`) stays open on purpose.
+
+### Settings to add in Netlify (Site configuration, Environment variables, mark as secret)
+
+`HUB_ACCESS_CODE`, `RESEND_API_KEY`, `EMAIL_FROM`, `RESEND_WEBHOOK_SECRET`, `INTERAKT_API_KEY`, `INTERAKT_WEBHOOK_SECRET`, `INBOUND_KEY`, `ANTHROPIC_API_KEY`.
+
+If `HUB_ACCESS_CODE` is missing, the protected routes answer "not set" and do nothing. The first time someone uses a protected route the hub asks for the code and keeps it for that browser tab.
+
+### After the first deploy
+
+1. Resend, Webhooks, Add endpoint: `https://YOUR-SITE.netlify.app/api/resend-webhook`. Tick sent, delivered, opened, clicked, bounced, complained and failed. Copy the signing secret into `RESEND_WEBHOOK_SECRET`.
+2. Interakt, Developer settings, Webhooks: `https://YOUR-SITE.netlify.app/api/interakt-webhook` with your secret key. Choose message sent, delivered, read, failed and message received.
+3. Redeploy after changing any setting.
+4. In Reach, open the dashboard. The Delivery updates panel shows when it last checked.

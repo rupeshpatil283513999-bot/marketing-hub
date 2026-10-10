@@ -41,6 +41,7 @@ async function handler(req, res) {
       taskId,
       partnerName,
       spocName,
+      tags,
     } = body;
 
     // Validate recipient
@@ -121,6 +122,12 @@ async function handler(req, res) {
       text: contentText,
       html: formattedHtml,
     };
+
+    // Tags let Resend delivery events be matched back to the contact and flow
+    if (Array.isArray(tags)) {
+      const okTag = (v) => String(v || '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 256);
+      resendPayload.tags = tags.filter((x) => x && x.name && x.value).slice(0, 10).map((x) => ({ name: okTag(x.name), value: okTag(x.value) }));
+    }
 
     // Attachments handling
     if (Array.isArray(attachments) && attachments.length > 0) {
