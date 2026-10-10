@@ -12450,7 +12450,14 @@
     .rx-bdg { font-size: 10.5px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border-soft, var(--border)); color: var(--ink-soft, inherit); }
     .rx-bdg.bad { color: var(--accent-coral); border-color: var(--accent-coral); }
     .rx-bdg.ok { color: #05a049; border-color: #05a049; }
-  </style>
+
+    .rx-lim-h { display: flex; flex-direction: column; gap: 2px; }
+    .rx-lim-r { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 10px; }
+    .rx-lim-c { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border: 1px solid var(--border-soft, var(--border)); border-radius: 8px; font-size: 12.5px; }
+    .rx-lim-c.full { border-color: var(--accent-coral); }
+    .rx-lim-c.full span:nth-of-type(1) { color: var(--accent-coral); }
+    .rx-task-a .rx-sub.rx-bad { flex-basis: 100%; }
+</style>
 </head>
 
 <body>
@@ -30597,7 +30604,7 @@
 
 
     function rxSeed() {
-      return { v: 3, contacts: [], templates: RX_TEMPLATES.map((t) => ({ ...t })), flows: [], tasks: [], tplV: 2, settings: { sender: '', testEmail: '', dailyCap: 200, coolDays: 7, footer: RX_FOOTER, baseLink: '', autoRun: false, testPhone: '', waCap: 300 } };
+      return { v: 3, contacts: [], templates: RX_TEMPLATES.map((t) => ({ ...t })), flows: [], tasks: [], tplV: 2, settings: { sender: '', testEmail: '', dailyCap: 200, coolDays: 7, footer: RX_FOOTER, baseLink: '', autoRun: false, testPhone: '', waCap: 300, liCap: 20 } };
     }
     function rxFromV2(o) {
       const base = rxSeed();
@@ -30822,7 +30829,7 @@
     /* null when the contact can be reached on this channel, else { k, t } */
     function rxCanReach(c, type) {
       if (c.status === 'optout' || c.consent === 'no') return { k: 'optout', t: 'Opted out' };
-      if (type === 'li') return c.linkedin ? null : { k: 'noaddr', t: 'No LinkedIn link' };
+      if (type === 'li') { if (c.linkedinBad) return { k: 'noaddr', t: 'LinkedIn link did not work' }; return c.linkedin ? null : { k: 'noaddr', t: 'No LinkedIn link' }; }
       if (type === 'wa') { if (c.consent !== 'yes') return { k: 'consent', t: 'WhatsApp needs a confirmed opt in' }; return rxPhone(c.phone) ? null : { k: 'noaddr', t: 'No valid phone number' }; }
       if (c.consent !== 'yes' && c.consent !== 'legit') return { k: 'consent', t: 'Consent not confirmed' };
       if (type === 'em') { if (c.emailBad) return { k: 'noaddr', t: 'Email bounced' }; return rxEmailOk(rxEmail(c.email)) ? null : { k: 'noaddr', t: 'No valid email address' }; }
@@ -30857,6 +30864,29 @@
       const today = rxToday(); let n = 0;
       s.flows.forEach((f) => Object.values(f.runs || {}).forEach((r) => (r.h || []).forEach((x) => { if (x.api && x.st === 'sent' && !x.sim && String(x.at).slice(0, 10) === today) n++; })));
       return n;
+    }
+    /* LinkedIn: a per person daily limit, because LinkedIn restricts accounts that send too much. */
+    const RX_LI_OUT = { sent: 'Sent', replied: 'Sent, they replied', declined: 'Not interested', unreachable: 'Could not send' };
+    const rxLiCap = (s) => { const v = s.settings && s.settings.liCap; if (v === undefined || v === null || v === '') return 20; const n = Number(v); return n >= 0 ? n : 20; };
+    const rxLiWho = (t) => t.owner || 'Unassigned';
+    const rxLiCounts = (o) => o === 'sent' || o === 'replied' || o === undefined || o === null || o === '';
+    function rxLiDoneToday(s, who) {
+      const today = rxToday();
+      return s.tasks.filter((t) => t.kind === 'li' && t.status === 'done' && String(t.doneAt || '').slice(0, 10) === today && rxLiWho(t) === who && rxLiCounts(t.outcome)).length;
+    }
+    /* First day this person still has room for another LinkedIn task. */
+    function rxLiDue(s, who) {
+      const cap = rxLiCap(s);
+      const today = rxToday();
+      if (!cap) return today;
+      const open = s.tasks.filter((t) => t.kind === 'li' && t.status === 'open' && rxLiWho(t) === who);
+      const done = rxLiDoneToday(s, who);
+      for (let d = 0; d < 400; d++) {
+        const day = new Date(Date.now() + d * 86400000).toISOString().slice(0, 10);
+        const queued = open.filter((t) => (d === 0 ? t.due <= day : t.due === day)).length + (d === 0 ? done : 0);
+        if (queued < cap) return day;
+      }
+      return today;
     }
     function rxWaSentToday(s) {
       const today = rxToday(); let n = 0;
@@ -31054,8 +31084,9 @@
       const m = (t) => rxMerge(t, c, f, s, st.type === 'task' ? 'em' : st.type);
       const nm = c.name || c.email || 'contact';
       const title = kind === 'wa' ? 'Send WhatsApp to ' + nm : kind === 'li' ? 'Message ' + nm + ' on LinkedIn' : kind === 'mail' ? 'Email ' + nm + ' from your own mailbox' : m(st.title);
-      const due = new Date(Date.now() + (kind === 'todo' ? (Number(st.dueDays) || 0) * 86400000 : 0)).toISOString().slice(0, 10);
-      return { id: rxId('t'), flowId: f.id, stepId: st.id, contactId: c.id, kind, title, note: m(st.note || ''), subject: kind === 'mail' ? m(st.subject) : '', text: kind === 'wa' || kind === 'li' || kind === 'mail' ? m(st.body) : '', owner: st.assignTo || c.owner || '', due, status: 'open', createdAt: rxNow() };
+      const owner = st.assignTo || c.owner || '';
+      const due = kind === 'li' ? rxLiDue(s, owner || 'Unassigned') : new Date(Date.now() + (kind === 'todo' ? (Number(st.dueDays) || 0) * 86400000 : 0)).toISOString().slice(0, 10);
+      return { id: rxId('t'), flowId: f.id, stepId: st.id, contactId: c.id, kind, title, note: m(st.note || ''), subject: kind === 'mail' ? m(st.subject) : '', text: kind === 'wa' || kind === 'li' || kind === 'mail' ? m(st.body) : '', owner, due, status: 'open', createdAt: rxNow() };
     }
     function rxMakeTeamTask(f, st) {
       const m = (t) => rxMerge(t, null, f, null, 'em');
@@ -31068,7 +31099,7 @@
       return { id: rxId('t'), flowId: f.id, stepId: st.id, contactId: '', kind: 'team', title: m(st.title), note: m(st.note || ''), subject: '', text: '', owner: st.assignTo || '', due: rxToday(), status: 'open', createdAt: rxNow() };
     }
     /* A person finishes (or skips) a task. The run moves on at the next run. */
-    function rxCloseTask(upd, id, how) {
+    function rxCloseTask(upd, id, how, outcome) {
       upd((x) => {
         const t = x.tasks.find((q) => q.id === id);
         if (!t || t.status !== 'open') return x;
@@ -31093,7 +31124,17 @@
           if (!left) flows = flows.map((f) => (f.id === fl.id ? { ...f, runs: { ...f.runs, [t.contactId]: { ...cur, state: 'active', waitG: '', due: rxNow() } } } : f));
         }
         if (how === 'done' && t.kind !== 'todo') contacts = x.contacts.map((c) => (c.id === t.contactId ? rxTouch(c, t.flowId) : c));
-        return { ...x, flows, contacts, tasks: x.tasks.map((q) => (q.id === id ? { ...q, status: how === 'done' ? 'done' : 'skipped', doneAt: rxNow() } : q)) };
+        if (outcome && t.kind === 'li') {
+          const at = rxNow();
+          contacts = contacts.map((c) => {
+            if (c.id !== t.contactId) return c;
+            if (outcome === 'replied' && c.status !== 'registered' && c.status !== 'optout') return { ...c, status: 'replied', lastReply: { at, text: 'Replied on LinkedIn' } };
+            if (outcome === 'declined') return { ...c, status: 'optout', consent: 'no', optoutWhy: 'Said not interested on LinkedIn' };
+            if (outcome === 'unreachable') return { ...c, linkedinBad: true };
+            return c;
+          });
+        }
+        return { ...x, flows, contacts, tasks: x.tasks.map((q) => (q.id === id ? { ...q, status: how === 'done' ? 'done' : 'skipped', doneAt: rxNow(), ...(outcome ? { outcome } : {}) } : q)) };
       });
     }
     function rxRunMsg(r) {
@@ -31175,7 +31216,7 @@
               setRun((r) => ({ ...r, at: r.at + 1 })); continue;
             }
             if (st.type === 'task') {
-              const t = rxMakeTask(x, f, st, c);
+              const t = rxMakeTask(api.get(), f, st, c);
               if (nb) { api.upd((q) => ({ ...rxUpRun(q, fid, cid, (r) => ({ ...r, at: r.at + 1, ...(r.late ? { caught: true } : {}), h: (r.h || []).concat({ i: r.at, ch: 'queued', st: 'queued', at: rxNow() }) })), tasks: q.tasks.concat(t) })); res.tasks++; continue; }
               api.upd((q) => ({ ...rxUpRun(q, fid, cid, (r) => ({ ...r, state: 'task', ...(r.late ? { caught: true } : {}) })), tasks: q.tasks.concat(t) })); res.tasks++; break;
             }
@@ -31183,7 +31224,7 @@
             if (why && why.k === 'optout') { stop(why.t); break; }
             if (why) { setRun((r) => ({ ...r, at: r.at + 1, h: (r.h || []).concat({ i: r.at, ch: RX_CHSTEP[st.type], st: 'skipped', why: why.t, at: rxNow() }) })); res.skipped++; continue; }
             if (st.type === 'call' || (st.type === 'wa' && st.method !== 'api') || st.type === 'li' || (st.type === 'em' && st.method === 'mailto')) {
-              const t = rxMakeTask(x, f, st, c);
+              const t = rxMakeTask(api.get(), f, st, c);
               if (nb) { api.upd((q) => ({ ...rxUpRun(q, fid, cid, (r) => ({ ...r, at: r.at + 1, ...(r.late ? { caught: true } : {}), h: (r.h || []).concat({ i: r.at, ch: 'queued', st: 'queued', at: rxNow() }) })), tasks: q.tasks.concat(t) })); res.tasks++; continue; }
               api.upd((q) => ({ ...rxUpRun(q, fid, cid, (r) => ({ ...r, state: 'task', ...(r.late ? { caught: true } : {}) })), tasks: q.tasks.concat(t) })); res.tasks++; break;
             }
@@ -31435,6 +31476,8 @@
 
     /* ---------- Delivery updates from Resend and Interakt ---------- */
     const RX_STOPWORD = /^\s*(stop|unsubscribe|opt ?out|do not message|dont message)\s*[.!]*\s*$/i;
+    /* LinkedIn emails give a name and nothing else, so people are matched by name. */
+    const rxNameKey = (v) => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(mr|mrs|ms|dr|ca|cfa|prof|shri|smt)\b\.?/g, ' ').replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim();
     /* Pure: takes the state and the waiting events, returns the new state and a count of what changed. */
     function rxApplyEvents(s, events) {
       const seen = new Set(s.evtSeen || []);
@@ -31442,7 +31485,20 @@
       const byMail = new Map(); const byTel = new Map();
       s.contacts.forEach((c) => { const m = rxEmail(c.email); if (m && !byMail.has(m)) byMail.set(m, c); const p = rxPhone(c.phone); if (p && !byTel.has(p)) byTel.set(p, c); });
       const patches = new Map();
-      const n = { applied: 0, opened: 0, clicked: 0, bounced: 0, optout: 0, replied: 0, read: 0, failed: 0, unmatched: 0, dup: 0 };
+      const liTasks = new Map();
+      (s.tasks || []).forEach((t) => { if (t.kind === 'li' && t.contactId) liTasks.set(t.contactId, true); });
+      const byName = new Map();
+      s.contacts.forEach((c) => { const k = rxNameKey(c.name); if (k) byName.set(k, (byName.get(k) || []).concat(c)); });
+      const liMatch = (nm) => {
+        const k = rxNameKey(nm); if (!k) return null;
+        let list = byName.get(k);
+        if (!list) { const w = k.split(' '); if (w.length > 1) list = s.contacts.filter((c) => { const x = rxNameKey(c.name).split(' '); return x.length > 1 && x[0] === w[0] && x[x.length - 1] === w[w.length - 1]; }); }
+        if (!list || !list.length) return null;
+        const asked = list.filter((c) => liTasks.get(c.id));
+        return asked.length === 1 ? asked[0] : null;
+      };
+      const liDone = new Map();
+      const n = { applied: 0, opened: 0, clicked: 0, bounced: 0, optout: 0, replied: 0, read: 0, failed: 0, accepted: 0, unmatched: 0, dup: 0 };
       const acked = [];
       (events || []).forEach((e) => {
         if (!e || !e.id) return;
@@ -31450,6 +31506,7 @@
         if (seen.has(e.id)) { n.dup++; return; }
         seen.add(e.id);
         let c = (e.contactId && byId.get(e.contactId)) || null;
+        if (!c && e.src === 'linkedin') c = liMatch(e.name);
         if (!c && e.email) c = byMail.get(rxEmail(e.email)) || null;
         if (!c && e.phone) c = byTel.get(rxPhone(e.phone)) || null;
         if (!c) { n.unmatched++; return; }
@@ -31462,6 +31519,14 @@
           else if (e.kind === 'bounced' || e.kind === 'failed') { p.emailBad = true; p.emailBadWhy = String(e.reason || e.kind).slice(0, 160); n.bounced++; }
           else if (e.kind === 'complained') { p.status = 'optout'; p.consent = 'no'; p.optoutWhy = 'Marked an email as spam'; n.optout++; }
           else if (e.kind === 'delivered') { p.emailDelivered = at; }
+        } else if (e.src === 'linkedin') {
+          if (e.kind === 'accepted') { p.liAccepted = at; n.accepted++; }
+          else if (e.kind === 'reply') {
+            const t = String(e.text || '');
+            p.lastReply = { at, text: (t || 'Replied on LinkedIn').slice(0, 200), via: 'LinkedIn' };
+            if (RX_STOPWORD.test(t)) { p.status = 'optout'; p.consent = 'no'; p.optoutWhy = 'Replied STOP on LinkedIn'; n.optout++; }
+            else if (cur.status !== 'registered' && cur.status !== 'optout') { p.status = 'replied'; n.replied++; liDone.set(c.id, true); }
+          }
         } else if (e.src === 'interakt') {
           if (e.kind === 'delivered') p.waDelivered = at;
           else if (e.kind === 'read') { p.waRead = at; p.waDelivered = cur.waDelivered || at; n.read++; }
@@ -31479,7 +31544,15 @@
       });
       const contacts = patches.size ? s.contacts.map((c) => (patches.has(c.id) ? { ...c, ...patches.get(c.id) } : c)) : s.contacts;
       const evtSeen = Array.from(seen).slice(-1000);
-      return { s: { ...s, contacts, evtSeen }, n, acked };
+      /* The LinkedIn task that was sent to them now shows they replied. */
+      let tasks = s.tasks;
+      if (liDone.size) {
+        const last = new Map();
+        (s.tasks || []).forEach((t) => { if (t.kind === 'li' && t.status === 'done' && liDone.has(t.contactId) && (!t.outcome || t.outcome === 'sent')) { const o = last.get(t.contactId); if (!o || String(t.doneAt || '') > String(o.doneAt || '')) last.set(t.contactId, t); } });
+        const ids = new Set(Array.from(last.values()).map((t) => t.id));
+        if (ids.size) tasks = s.tasks.map((t) => (ids.has(t.id) ? { ...t, outcome: 'replied' } : t));
+      }
+      return { s: { ...s, contacts, tasks, evtSeen }, n, acked };
     }
     const rxEvtMsg = (n) => {
       const bits = [];
@@ -31489,6 +31562,7 @@
       if (n.read) bits.push(n.read + ' WhatsApp read');
       if (n.failed) bits.push(n.failed + ' WhatsApp not delivered');
       if (n.replied) bits.push(n.replied + ' repl' + (n.replied > 1 ? 'ies' : 'y'));
+      if (n.accepted) bits.push(n.accepted + ' LinkedIn invitation' + (n.accepted > 1 ? 's' : '') + ' accepted');
       if (n.optout) bits.push(n.optout + ' opted out');
       return bits.length ? bits.join(', ') : (n.applied ? n.applied + ' delivery updates' : 'Nothing new');
     };
@@ -31926,7 +32000,7 @@
         if (f.segment !== 'all' && c.segment !== f.segment) return false;
         if (f.consent !== 'all' && c.consent !== f.consent) return false;
         if (f.status !== 'all' && c.status !== f.status) return false;
-        if (f.delivery === 'bounced' && !c.emailBad && !c.waFailed) return false;
+        if (f.delivery === 'bounced' && !c.emailBad && !c.waFailed && !c.linkedinBad) return false;
         if (f.delivery === 'opened' && !c.opens && !c.waRead) return false;
         if (f.q && !(c.name + ' ' + c.email + ' ' + c.org + ' ' + c.phone).toLowerCase().includes(f.q.toLowerCase())) return false;
         return true;
@@ -31983,7 +32057,7 @@
                 <tr key={c.id}>
                   <td><input type="checkbox" checked={!!sel[c.id]} onChange={(e) => setSel({ ...sel, [c.id]: e.target.checked })} /></td>
                   <td><b>{c.name || 'No name'}</b><div className="rx-sub">{c.org}</div></td>
-                  <td><div>{c.email || <span className="rx-sub">no email</span>}</div><div className="rx-sub">{c.phone}{c.linkedin ? ' · LinkedIn' : ''}{c.instagram ? (c.phone || c.linkedin ? ' · ' : '') + '@' + c.instagram : ''}</div>{(c.emailBad || c.opens || c.clicks || c.waRead || c.waFailed || c.lastReply) ? <div className="rx-badges">{c.emailBad ? <span className="rx-bdg bad" title={c.emailBadWhy || ''}>Email bounced</span> : null}{c.opens ? <span className="rx-bdg">Opened {c.opens}x</span> : null}{c.clicks ? <span className="rx-bdg">Clicked {c.clicks}x</span> : null}{c.waRead ? <span className="rx-bdg">WhatsApp read</span> : null}{c.waFailed ? <span className="rx-bdg bad" title={c.waFailed}>WhatsApp failed</span> : null}{c.lastReply ? <span className="rx-bdg ok" title={c.lastReply.text}>Replied</span> : null}</div> : null}</td>
+                  <td><div>{c.email || <span className="rx-sub">no email</span>}</div><div className="rx-sub">{c.phone}{c.linkedin ? ' · LinkedIn' : ''}{c.instagram ? (c.phone || c.linkedin ? ' · ' : '') + '@' + c.instagram : ''}</div>{(c.emailBad || c.linkedinBad || c.opens || c.clicks || c.waRead || c.waFailed || c.lastReply) ? <div className="rx-badges">{c.emailBad ? <span className="rx-bdg bad" title={c.emailBadWhy || ''}>Email bounced</span> : null}{c.opens ? <span className="rx-bdg">Opened {c.opens}x</span> : null}{c.clicks ? <span className="rx-bdg">Clicked {c.clicks}x</span> : null}{c.waRead ? <span className="rx-bdg">WhatsApp read</span> : null}{c.waFailed ? <span className="rx-bdg bad" title={c.waFailed}>WhatsApp failed</span> : null}{c.linkedinBad ? <span className="rx-bdg bad">LinkedIn link failed</span> : null}{c.lastReply ? <span className="rx-bdg ok" title={c.lastReply.text}>Replied</span> : null}</div> : null}</td>
                   <td><RxPill col={rxTeam(c.team).col}>{rxTeam(c.team).name}</RxPill><div className="rx-sub">{c.segment || 'No segment'} · {c.source}</div></td>
                   <td><select className={'rx-sel rx-c-' + c.consent} value={c.consent} onChange={(e) => patch(c.id, { consent: e.target.value, ...(e.target.value === 'no' ? { status: 'optout' } : {}) })}>{Object.keys(RX_CONSENT).map((k) => <option key={k} value={k}>{RX_CONSENT[k]}</option>)}</select></td>
                   <td><select className="rx-sel" value={c.status} onChange={(e) => patch(c.id, { status: e.target.value, ...(e.target.value === 'optout' ? { consent: 'no' } : {}) })}>{Object.keys(RX_STATUS).map((k) => <option key={k} value={k}>{RX_STATUS[k]}</option>)}</select></td>
@@ -32157,6 +32231,7 @@
             <RxField label="Emails sent by the hub per day (cap)"><input className="rx-in" type="number" min="0" value={st.dailyCap} onChange={(e) => set({ dailyCap: e.target.value })} /></RxField>
             <RxField label="Your WhatsApp number for test runs"><input className="rx-in" value={st.testPhone || ''} onChange={(e) => set({ testPhone: e.target.value })} placeholder="With country code, for example 919876543210" /></RxField>
             <RxField label="WhatsApp messages sent by the hub per day (cap)"><input className="rx-in" type="number" min="0" value={st.waCap === undefined ? 300 : st.waCap} onChange={(e) => set({ waCap: e.target.value })} /></RxField>
+            <RxField label="LinkedIn messages per person per day (limit)"><input className="rx-in" type="number" min="0" value={st.liCap === undefined ? 20 : st.liCap} onChange={(e) => set({ liCap: e.target.value })} /></RxField>
             <RxField label="Do not start a flow for someone contacted within (days)"><input className="rx-in" type="number" min="0" value={st.coolDays} onChange={(e) => set({ coolDays: e.target.value })} /></RxField>
           </div>
           <RxField label="Footer added to every email (the opt-out line)" wide><textarea className="rx-ta" rows={3} value={st.footer} onChange={(e) => set({ footer: e.target.value })} /></RxField>
@@ -33059,10 +33134,14 @@
       const PS = 30; const pages = Math.max(1, Math.ceil(list.length / PS)); const view = list.slice(page * PS, page * PS + PS);
       const openCount = s.tasks.filter((t) => t.status === 'open').length;
       const late = s.tasks.filter((t) => t.status === 'open' && t.due < todayIso).length;
+      const liCap = rxLiCap(s);
+      const liWho = Array.from(new Set(s.tasks.filter((t) => t.kind === 'li' && (t.status === 'open' || (t.status === 'done' && String(t.doneAt || '').slice(0, 10) === todayIso))).map(rxLiWho))).sort();
+      const liRows = liWho.map((w) => ({ who: w, n: rxLiDoneToday(s, w), open: s.tasks.filter((t) => t.kind === 'li' && t.status === 'open' && rxLiWho(t) === w).length }));
+      const liLate = (w) => s.tasks.filter((t) => t.kind === 'li' && t.status === 'open' && rxLiWho(t) === w && t.due <= todayIso).length;
       const act = (t, c) => {
         if (t.kind === 'wa') window.open('https://wa.me/' + rxPhone(c.phone) + '?text=' + encodeURIComponent(t.text), '_blank');
         else if (t.kind === 'mail') window.open('mailto:' + encodeURIComponent(c.email) + '?subject=' + encodeURIComponent(t.subject) + '&body=' + encodeURIComponent(t.text), '_self');
-        else if (t.kind === 'li') { try { navigator.clipboard.writeText(t.text); } catch (e) { } window.open(c.linkedin, '_blank'); setNote('Message copied. Paste it on LinkedIn, then press Mark done.'); }
+        else if (t.kind === 'li') { try { navigator.clipboard.writeText(t.text); } catch (e) { } window.open(c.linkedin, '_blank'); setNote('Message copied. Paste it on LinkedIn, then press Sent.'); }
         else if (t.kind === 'call') window.open('tel:+' + rxPhone(c.phone), '_self');
       };
       const cp = (txt, what) => { Promise.resolve().then(() => navigator.clipboard.writeText(txt)).catch(() => { }); setNote(what + ' copied.'); };
@@ -33077,6 +33156,13 @@
             <span className="rc-count">{openCount} open{late ? ', ' + late + ' late' : ''}</span>
           </div></div>
           {note && <div className="cx-note rx-ok">{note}</div>}
+          {liRows.length > 0 && (
+            <div className="cx-panel rx-lim">
+              <div className="rx-lim-h"><b>LinkedIn today</b><span className="rx-sub">{liCap ? 'Limit of ' + liCap + ' per person per day. LinkedIn restricts accounts that send too much. Extra tasks wait for the next day.' : 'No daily limit is set. Add one in Settings.'}</span></div>
+              <div className="rx-lim-r">{liRows.map((r) => { const full = liCap > 0 && r.n >= liCap; return (
+                <div key={r.who} className={'rx-lim-c' + (full ? ' full' : '')}><b>{r.who}</b><span>{r.n}{liCap ? ' of ' + liCap : ''} sent today</span><span className="rx-sub">{liLate(r.who)} ready now, {r.open} open in all</span></div>); })}</div>
+            </div>
+          )}
           {list.length === 0 ? <div className="cx-note">{s.tasks.length ? 'No tasks match these filters.' : 'No tasks yet. When a live flow reaches a WhatsApp, LinkedIn, call or task step, each person shows up here for someone to do.'}</div> : (
             <div className="rx-tasks">{view.map((t) => {
               const c = cm.get(t.contactId) || {}; const f = fm.get(t.flowId); const k = t.social ? { label: t.social.platform === 'linkedin' ? 'LinkedIn post' : 'Instagram post', col: '#ec4899' } : (RX_TKIND[t.kind] || RX_TKIND.todo); const lateT = t.status === 'open' && t.due < todayIso;
@@ -33097,11 +33183,18 @@
                     </div>)}
                   </div>
                   <div className="rx-task-a">
-                    {t.status === 'open' ? (<>
+                    {t.status === 'open' && t.kind === 'li' ? (() => { const full = liCap > 0 && rxLiDoneToday(s, rxLiWho(t)) >= liCap; const waits = t.due > todayIso; const blocked = full || waits; return (<>
+                      {blocked && <div className="rx-sub rx-bad">{waits ? 'Planned for ' + t.due + ' to stay under the daily limit' : rxLiWho(t) + ' has reached today\'s limit of ' + liCap}</div>}
+                      <button type="button" className="cx-btn" disabled={blocked} onClick={() => act(t, c)}>Copy and open profile</button>
+                      <button type="button" className="cx-btn cx-btn-primary" disabled={blocked} onClick={() => rxCloseTask(upd, t.id, 'done', 'sent')}>Sent</button>
+                      <button type="button" className="cx-btn" disabled={blocked} title="Sent, and they have already replied" onClick={() => rxCloseTask(upd, t.id, 'done', 'replied')}>Sent, they replied</button>
+                      <button type="button" className="cx-btn" title="They said no. They are taken off all future outreach." onClick={() => rxCloseTask(upd, t.id, 'done', 'declined')}>Not interested</button>
+                      <button type="button" className="cx-btn" title="Profile missing or blocked. This person is stopped and the link is marked as not working." onClick={() => rxCloseTask(upd, t.id, 'skip', 'unreachable')}>Could not send</button>
+                    </>); })() : t.status === 'open' ? (<>
                       {actLabel[t.kind] && <button type="button" className="cx-btn" onClick={() => act(t, c)}>{actLabel[t.kind]}</button>}
                       <button type="button" className="cx-btn cx-btn-primary" onClick={() => rxCloseTask(upd, t.id, 'done')}>Mark done</button>
                       <button type="button" className="cx-btn" title="Skip this person and stop their flow" onClick={() => rxCloseTask(upd, t.id, 'skip')}>Skip</button>
-                    </>) : <RxPill col={t.status === 'done' ? '#05a049' : '#8E8E93'}>{t.status === 'done' ? 'Done' : 'Skipped'}</RxPill>}
+                    </>) : <RxPill col={t.outcome === 'declined' || t.outcome === 'unreachable' ? '#F59E0B' : t.status === 'done' ? '#05a049' : '#8E8E93'}>{t.kind === 'li' && t.outcome ? RX_LI_OUT[t.outcome] : t.status === 'done' ? 'Done' : 'Skipped'}</RxPill>}
                   </div>
                 </div>
               );
