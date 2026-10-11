@@ -73,6 +73,8 @@ export function linkedinEvent(b) {
   const from = liClean(b.from || b.sender, 300);
   const text = liClean(b.snippet || b.text || b.body || b.preview || b.message, 400);
   const accepted = /accepted your (invitation|connection|request)/i.test(subject) || String(b.kind || '').toLowerCase() === 'accepted';
+  const sentOut = String(b.kind || '').toLowerCase() === 'sent';
+  const url = (/linkedin\.com\/(in|company)\/[^/?#\s]+/i.exec(String(b.url || b.profile || '')) || [''])[0].toLowerCase();
   let name = liClean(b.name, 120);
   if (!name) {
     let m = /^\s*"?([^"<]+?)"?\s+via\s+LinkedIn\b/i.exec(from);
@@ -81,10 +83,11 @@ export function linkedinEvent(b) {
     name = m ? liClean(m[1], 120) : '';
   }
   name = name.replace(/\s*\([^)]*\)\s*$/, '').replace(/[.,:;!]+$/, '').trim();
+  if (sentOut && !name && url) name = decodeURIComponent(url.split('/').pop()).replace(/[-_]+/g, ' ').trim();
   if (name.length < 2 || /@|^linkedin$/i.test(name)) return null;
   const when = new Date(b.at || b.date || b.received_at || b.receivedAt || Date.now());
   const at = isNaN(when.getTime()) ? new Date().toISOString() : when.toISOString();
-  const kind = accepted ? 'accepted' : 'reply';
+  const kind = sentOut ? 'sent' : accepted ? 'accepted' : 'reply';
   const key = liClean(b.messageId || b.message_id || b.id, 120) || createHash('sha1').update([kind, name, subject, String(b.at || b.date || b.received_at || b.receivedAt || '')].join('|')).digest('hex').slice(0, 20);
-  return { id: 'li:' + key, src: 'linkedin', kind, name, at, text: kind === 'reply' ? text.slice(0, 300) : '', subject: subject.slice(0, 200) };
+  return { id: 'li:' + key, src: 'linkedin', kind, name, url, at, text: kind === 'reply' ? text.slice(0, 300) : '', subject: subject.slice(0, 200) };
 }

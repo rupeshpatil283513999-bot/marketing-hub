@@ -31476,6 +31476,8 @@
 
     /* ---------- Delivery updates from Resend and Interakt ---------- */
     const RX_STOPWORD = /^\s*(stop|unsubscribe|opt ?out|do not message|dont message)\s*[.!]*\s*$/i;
+    /* A LinkedIn address boiled down to in/name or company/id so different spellings of one link compare equal. */
+    const rxLiSlug = (v) => { const m = /linkedin\.com\/(in|company)\/([^/?#\s]+)/i.exec(String(v || '')); if (!m) return ''; let x = m[2]; try { x = decodeURIComponent(x); } catch (e) { } return (m[1] + '/' + x).toLowerCase(); };
     /* LinkedIn emails give a name and nothing else, so people are matched by name. */
     const rxNameKey = (v) => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\b(mr|mrs|ms|dr|ca|cfa|prof|shri|smt)\b\.?/g, ' ').replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim();
     /* Pure: takes the state and the waiting events, returns the new state and a count of what changed. */
@@ -31498,7 +31500,10 @@
         return asked.length === 1 ? asked[0] : null;
       };
       const liDone = new Map();
-      const n = { applied: 0, opened: 0, clicked: 0, bounced: 0, optout: 0, replied: 0, read: 0, failed: 0, accepted: 0, unmatched: 0, dup: 0 };
+      const bySlug = new Map();
+      s.contacts.forEach((c) => { const k = rxLiSlug(c.linkedin); if (k && !bySlug.has(k)) bySlug.set(k, c); });
+      const close = []; const closing = new Set();
+      const n = { applied: 0, opened: 0, clicked: 0, bounced: 0, optout: 0, replied: 0, read: 0, failed: 0, accepted: 0, sent: 0, sentNoTask: 0, unmatched: 0, dup: 0 };
       const acked = [];
       (events || []).forEach((e) => {
         if (!e || !e.id) return;
@@ -31506,10 +31511,17 @@
         if (seen.has(e.id)) { n.dup++; return; }
         seen.add(e.id);
         let c = (e.contactId && byId.get(e.contactId)) || null;
+        if (!c && e.src === 'linkedin' && e.url) c = bySlug.get(rxLiSlug(e.url)) || null;
         if (!c && e.src === 'linkedin') c = liMatch(e.name);
         if (!c && e.email) c = byMail.get(rxEmail(e.email)) || null;
         if (!c && e.phone) c = byTel.get(rxPhone(e.phone)) || null;
         if (!c) { n.unmatched++; return; }
+        if (e.src === 'linkedin' && e.kind === 'sent') {
+          /* You sent them a message on LinkedIn: the oldest open LinkedIn task for them is done. */
+          const open = (s.tasks || []).filter((t) => t.kind === 'li' && t.status === 'open' && t.contactId === c.id && !closing.has(t.id)).sort((a, b) => String(a.due || '').localeCompare(String(b.due || '')) || String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
+          if (open.length) { close.push(open[0].id); closing.add(open[0].id); n.sent++; n.applied++; } else n.sentNoTask++;
+          return;
+        }
         const cur = { ...c, ...(patches.get(c.id) || {}) };
         const p = {};
         const at = e.at || rxNow();
@@ -31552,7 +31564,7 @@
         const ids = new Set(Array.from(last.values()).map((t) => t.id));
         if (ids.size) tasks = s.tasks.map((t) => (ids.has(t.id) ? { ...t, outcome: 'replied' } : t));
       }
-      return { s: { ...s, contacts, tasks, evtSeen }, n, acked };
+      return { s: { ...s, contacts, tasks, evtSeen }, n, acked, close };
     }
     const rxEvtMsg = (n) => {
       const bits = [];
@@ -31562,6 +31574,8 @@
       if (n.read) bits.push(n.read + ' WhatsApp read');
       if (n.failed) bits.push(n.failed + ' WhatsApp not delivered');
       if (n.replied) bits.push(n.replied + ' repl' + (n.replied > 1 ? 'ies' : 'y'));
+      if (n.sent) bits.push(n.sent + ' LinkedIn message' + (n.sent > 1 ? 's' : '') + ' marked Sent');
+      if (n.sentNoTask) bits.push(n.sentNoTask + ' LinkedIn send' + (n.sentNoTask > 1 ? 's' : '') + ' with no open task');
       if (n.accepted) bits.push(n.accepted + ' LinkedIn invitation' + (n.accepted > 1 ? 's' : '') + ' accepted');
       if (n.optout) bits.push(n.optout + ' opted out');
       return bits.length ? bits.join(', ') : (n.applied ? n.applied + ' delivery updates' : 'Nothing new');
@@ -31798,6 +31812,7 @@
         if (!list.length) { setEvInfo({ at: rxNow(), msg: quiet ? '' : 'Nothing new', err: '', busy: false }); return; }
         let res = null;
         upd((q) => { res = rxApplyEvents(q, list); return res.s; });
+        (res.close || []).forEach((id) => rxCloseTask(upd, id, 'done', 'sent'));
         try { await fetch('/api/hub-events', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ack: res.acked }) }); } catch (e) { }
         setEvInfo({ at: rxNow(), msg: rxEvtMsg(res.n) + (res.n.unmatched ? '. ' + res.n.unmatched + ' did not match a contact.' : ''), err: '', busy: false });
       }, [upd]);
