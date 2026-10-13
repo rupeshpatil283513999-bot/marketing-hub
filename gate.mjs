@@ -5,4 +5,3 @@
 export function gate(headers, env = process.env) {
   return null;
 }
-
