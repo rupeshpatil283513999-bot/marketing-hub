@@ -32334,6 +32334,8 @@
 
     function RxLeadFollowupModal({ lead, s, upd, onClose }) {
       const [newNote, setNewNote] = useState('');
+      const [liInput, setLiInput] = useState((lead && lead.linkedin) || '');
+      const [savedLiMsg, setSavedLiMsg] = useState('');
       if (!lead) return null;
       const c = lead;
       const theme = RX_STATUS_THEME[c.status] || { label: c.status, col: '#2563eb', bg: 'rgba(37,99,235,0.12)', border: 'rgba(37,99,235,0.35)' };
@@ -32399,6 +32401,18 @@
         setNewNote('');
       };
 
+      const saveLinkedin = () => {
+        const trimmed = liInput.trim();
+        const url = trimmed ? (trimmed.startsWith('http') ? trimmed : 'https://' + trimmed) : '';
+        upd((x) => ({
+          ...x,
+          contacts: x.contacts.map((k) => k.id === c.id ? { ...k, linkedin: url } : k)
+        }));
+        c.linkedin = url;
+        setSavedLiMsg('Saved ✓');
+        setTimeout(() => setSavedLiMsg(''), 2500);
+      };
+
       return (
         <div className="cx-modal-backdrop" onClick={onClose} style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
@@ -32447,6 +32461,26 @@
                 <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>PHONE</span><b style={{ fontSize: 12.5 }}>{c.phone || 'None'}</b></div>
                 <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>SOURCE</span><b style={{ fontSize: 12.5 }}>{cleanSource}</b></div>
                 <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>CONSENT</span><b style={{ fontSize: 12.5 }}>{cleanConsent}</b></div>
+              </div>
+
+              {/* Editable LinkedIn Profile Field */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--surface-2, #f8fafc)', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink-soft)', letterSpacing: '.04em', minWidth: 90 }}>LINKEDIN URL:</span>
+                <input
+                  type="url"
+                  placeholder="https://linkedin.com/in/username"
+                  value={liInput}
+                  onChange={(e) => setLiInput(e.target.value)}
+                  style={{ flex: '1 1 240px', padding: '6px 10px', fontSize: 12.5, borderRadius: 6, border: '1px solid var(--border)', background: 'var(--surface, #fff)', color: 'var(--ink)' }}
+                />
+                <button
+                  type="button"
+                  className="cx-btn cx-btn-primary"
+                  onClick={saveLinkedin}
+                  style={{ fontSize: 12, padding: '6px 14px', whiteSpace: 'nowrap' }}
+                >
+                  {savedLiMsg || 'Save LinkedIn'}
+                </button>
               </div>
 
               <div>
@@ -32832,14 +32866,23 @@
         const byE = new Map(s.contacts.filter((c) => c.email).map((c) => [rxEmail(c.email), c]));
         const byP = new Map(s.contacts.filter((c) => c.phone).map((c) => [rxPhone(c.phone), c]));
         const byI = new Map(s.contacts.filter((c) => c.instagram).map((c) => [rxHandle(c.instagram), c])); const seenI = new Set();
-        const r = { rows: rows.length, add: [], dupExisting: 0, dupFile: 0, invalid: 0, blocked: 0 };
+        const r = { rows: rows.length, add: [], updates: new Map(), dupExisting: 0, dupFile: 0, invalid: 0, blocked: 0 };
         rows.forEach((x) => {
           const email = rxEmail(x.email), phone = rxPhone(x.phone);
           const hd = rxHandle(x.instagram);
           if (!email && !phone && !x.linkedin && !hd) { r.invalid++; return; }
           if (x.email && !rxEmailOk(email)) { r.invalid++; return; }
-          const ex = (email && byE.get(email)) || (phone && byP.get(phone)) || (hd && byI.get(hd));
-          if (ex) { if (ex.status === 'optout') r.blocked++; else r.dupExisting++; return; }
+          const ex = (email && byE.get(email)) || (phone && byP.get(phone)) || (hd && byI.get(hd)) || (x.name && s.contacts.find((k) => k.name && k.name.toLowerCase() === String(x.name).trim().toLowerCase()));
+          if (ex) {
+            if (ex.status === 'optout') { r.blocked++; return; }
+            if (x.linkedin && (!ex.linkedin || ex.linkedin !== x.linkedin)) {
+              const uUrl = x.linkedin.startsWith('http') ? x.linkedin : 'https://' + x.linkedin;
+              r.updates.set(ex.id, { linkedin: uUrl });
+              return;
+            }
+            r.dupExisting++;
+            return;
+          }
           if ((email && seenE.has(email)) || (phone && seenP.has(phone)) || (hd && seenI.has(hd))) { r.dupFile++; return; }
           if (email) seenE.add(email); if (phone) seenP.add(phone); if (hd) seenI.add(hd);
           const cons = rxConsentFrom(x.consent, consent); const sent = ig && got && cons !== 'no';
@@ -32860,7 +32903,11 @@
         } catch (e) { setFm('Could not reach the lead inbox. Start the hub with node server.js and make sure api/instagram-leads.js is in the api folder.'); }
       };
       const onFile = (e) => { const fl = e.target.files && e.target.files[0]; if (!fl) return; const rd = new FileReader(); rd.onload = () => setText(String(rd.result || '')); rd.readAsText(fl); };
-      const doImport = () => { upd((x) => ({ ...x, contacts: x.contacts.concat(res.add) })); if (ids.length) { try { fetch('/api/instagram-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ack: ids }) }).catch(() => { }); } catch (e) { } } onDone(res.add.length + ' contacts added. ' + res.dupExisting + ' already in the list, ' + res.dupFile + ' repeated in the file, ' + res.invalid + ' invalid, ' + res.blocked + ' skipped because they opted out.'); };
+      const doImport = () => {
+        upd((x) => ({
+          ...x,
+          contacts: x.contacts.map((c) => (res.updates && res.updates.has(c.id)) ? { ...c, ...res.updates.get(c.id) } : c).concat(res.add)
+        })); if (ids.length) { try { fetch('/api/instagram-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ack: ids }) }).catch(() => { }); } catch (e) { } } onDone(res.add.length + ' contacts added. ' + res.dupExisting + ' already in the list, ' + res.dupFile + ' repeated in the file, ' + res.invalid + ' invalid, ' + res.blocked + ' skipped because they opted out.'); };
       return (
         <div className="cx-panel rx-panel">
           <h3 className="cx-panel-title">{ig ? 'Import Instagram leads' : 'Import contacts'}</h3>
