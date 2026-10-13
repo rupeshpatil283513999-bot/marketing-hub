@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  marketing-hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: marketing-hub
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=production
+      - PORT=5173
+      # Set to 'true' to allow requests through your custom domain or reverse proxy
+      - ALLOW_REMOTE_HOSTS=true
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    volumes:
+      # Persist webhook events and waiting Instagram leads across container restarts
+      - ./hub-events.json:/app/hub-events.json
+      - ./instagram-leads.json:/app/instagram-leads.json
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5173/', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
