@@ -12197,6 +12197,238 @@
     .app-shell.rx-light .rx-alert { background: var(--surface); }
     .app-shell.rx-light .rx-check { background: var(--surface); }
     .app-shell.rx-light .rx-check.ok > span { color: #047857; }
+    /* Reach KPI Panel & Channel Tabs - Contrast & Theme Polishing */
+    /* Reach KPI Panel & Channel Tabs - Contrast & Theme Polishing */
+    .rx-kpi-panel {
+      border-radius: 14px;
+      transition: all 0.2s ease;
+    }
+    .app-shell.rx-light .rx-kpi-panel {
+      background: #ffffff !important;
+      border: 1px solid rgba(15, 23, 42, 0.12) !important;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+    }
+    .app-shell:not(.rx-light) .rx-kpi-panel {
+      background: var(--surface, #131315) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    /* Channel Tabs in Light vs Dark */
+    .rx-ch-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .app-shell.rx-light .rx-ch-tab:not(.active) {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #1e293b;
+    }
+    .app-shell.rx-light .rx-ch-tab:not(.active):hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+    .app-shell.rx-light .rx-ch-tab:not(.active) .rx-ch-badge {
+      background: #e2e8f0;
+      color: #334155;
+      font-weight: 700;
+    }
+    .app-shell:not(.rx-light) .rx-ch-tab:not(.active) {
+      background: var(--surface-3, #1a1a1c);
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      color: var(--ink-soft, #8E8E93);
+    }
+    .app-shell:not(.rx-light) .rx-ch-tab:not(.active):hover {
+      background: var(--surface-hover, #202023);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--ink, #ffffff);
+    }
+    .app-shell:not(.rx-light) .rx-ch-tab:not(.active) .rx-ch-badge {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--ink-faint, #5A5A5E);
+      font-weight: 600;
+    }
+
+    /* Active Channel Tabs */
+    .app-shell.rx-light .rx-ch-tab.active {
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    }
+    .app-shell.rx-light .rx-ch-tab.active.ch-all { border: 1.5px solid #05a049; color: #047857; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-li { border: 1.5px solid #0A66C2; color: #0A66C2; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-wa { border: 1.5px solid #16a34a; color: #15803d; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-ig { border: 1.5px solid #db2777; color: #be185d; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-mail { border: 1.5px solid #d97706; color: #b45309; }
+
+    .app-shell.rx-light .rx-ch-tab.active.ch-all .rx-ch-badge { background: #05a049; color: #ffffff; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-li .rx-ch-badge { background: #0A66C2; color: #ffffff; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-wa .rx-ch-badge { background: #16a34a; color: #ffffff; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-ig .rx-ch-badge { background: #db2777; color: #ffffff; }
+    .app-shell.rx-light .rx-ch-tab.active.ch-mail .rx-ch-badge { background: #d97706; color: #ffffff; }
+
+    /* Subcards inside 2x2 grid & Pie chart */
+    .rx-kpi-subcard {
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 114px;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+    .app-shell.rx-light .rx-kpi-subcard {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    .app-shell.rx-light .rx-kpi-subcard:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .app-shell:not(.rx-light) .rx-kpi-subcard {
+      background: var(--surface-2, #0e0e0f);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .app-shell:not(.rx-light) .rx-kpi-subcard:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    /* Titles & Sublines */
+    .app-shell.rx-light .rx-kpi-title { color: #1e293b !important; }
+    .app-shell:not(.rx-light) .rx-kpi-title { color: var(--ink-soft, #8E8E93) !important; }
+    .app-shell.rx-light .rx-kpi-sub { color: #475569 !important; font-weight: 500; }
+    .app-shell:not(.rx-light) .rx-kpi-sub { color: var(--ink-soft, #8E8E93) !important; }
+
+    /* High-Contrast Tags / Chips */
+    .rx-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1.5px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    .app-shell.rx-light .rx-tag-green { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .app-shell:not(.rx-light) .rx-tag-green { background: rgba(5, 160, 73, 0.18); color: #34d399; border: 1px solid rgba(5, 160, 73, 0.35); }
+
+    .app-shell.rx-light .rx-tag-blue { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+    .app-shell:not(.rx-light) .rx-tag-blue { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+
+    .app-shell.rx-light .rx-tag-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+    .app-shell:not(.rx-light) .rx-tag-purple { background: rgba(139, 92, 246, 0.18); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.35); }
+
+    .app-shell.rx-light .rx-tag-pink { background: #fce7f3; color: #9d174d; border: 1px solid #fbcfe8; }
+    .app-shell:not(.rx-light) .rx-tag-pink { background: rgba(236, 72, 153, 0.18); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.35); }
+
+    .app-shell.rx-light .rx-tag-amber { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .app-shell:not(.rx-light) .rx-tag-amber { background: rgba(245, 158, 11, 0.18); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.35); }
+
+    .app-shell.rx-light .rx-tag-cyan { background: #cffafe; color: #0e7490; border: 1px solid #a5f3fc; }
+    .app-shell:not(.rx-light) .rx-tag-cyan { background: rgba(6, 182, 212, 0.18); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.35); }
+
+    /* Segment Rows */
+    .rx-seg-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 9px;
+      border-radius: 7px;
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+    }
+    .app-shell.rx-light .rx-seg-row:not(.hovered) {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+    .app-shell.rx-light .rx-seg-row:not(.hovered):hover {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+    .app-shell:not(.rx-light) .rx-seg-row:not(.hovered) {
+      background: var(--surface-3, #1a1a1c) !important;
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08)) !important;
+    }
+    .app-shell:not(.rx-light) .rx-seg-row:not(.hovered):hover {
+      background: var(--surface-hover, #202023) !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
+    }
+    .app-shell.rx-light .rx-seg-name { color: #0f172a !important; font-weight: 600; }
+    .app-shell:not(.rx-light) .rx-seg-name { color: var(--ink, #ffffff) !important; font-weight: 600; }
+    .app-shell.rx-light .rx-seg-pct { color: #475569 !important; font-weight: 600; }
+    .app-shell:not(.rx-light) .rx-seg-pct { color: var(--ink-soft, #8E8E93) !important; }
+
+    .rx-seg-banner-empty {
+      border-radius: 7px;
+      padding: 4px 10px;
+      min-height: 26px;
+      font-size: 10.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3px;
+      transition: all 0.15s ease;
+    }
+    .app-shell.rx-light .rx-seg-banner-empty {
+      background: #f1f5f9 !important;
+      border: 1px dashed #cbd5e1 !important;
+      color: #334155 !important;
+    }
+    .app-shell.rx-light .rx-seg-banner-active { color: #0f172a !important; font-weight: 700; border-radius: 7px; padding: 4px 10px; min-height: 26px; margin-bottom: 3px; }
+
+    /* Add Segment Button in Light Mode */
+    .rx-add-seg-collapsed {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 5px 11px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-sizing: border-box;
+    }
+    .app-shell.rx-light .rx-add-seg-collapsed {
+      background: #ffffff !important;
+      border: 1px dashed #94a3b8 !important;
+      color: #1e293b !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    .app-shell.rx-light .rx-add-seg-collapsed:hover {
+      background: #f8fafc !important;
+      border-color: #6366f1 !important;
+      color: #4338ca !important;
+    }
+    .app-shell.rx-light .rx-add-seg-expanded {
+      background: #ffffff !important;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08) !important;
+    }
+    .app-shell.rx-light .rx-add-seg-expanded input {
+      color: #0f172a !important;
+    }
+    .app-shell.rx-light .rx-add-seg-qty {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+
+    /* End Reach KPI Panel CSS */
+
     .app-shell.rx-light .rx-prev, .app-shell.rx-light .rx-sel, .app-shell.rx-light .rx-in, .app-shell.rx-light .rx-ta, .app-shell.rx-light .rc-search { background: #fff; }
 
     /* Reach flows */
@@ -15205,6 +15437,80 @@
           </svg>
         );
       }
+      if (name === 'whatsapp') {
+        return (
+          <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            style={{ flex: 'none', verticalAlign: 'middle', display: 'inline-block' }}
+          >
+            <rect width="24" height="24" rx="5" fill="#25D366" />
+            <path
+              d="M12.04 4.5a7.54 7.54 0 0 0-6.52 11.33L4.5 19.5l3.81-1a7.54 7.54 0 1 0 3.73-14zm0 13.8a6.27 6.27 0 0 1-3.2-.88l-.23-.14-2.38.62.64-2.32-.15-.24a6.27 6.27 0 1 1 5.32 2.96zm3.44-4.7c-.19-.09-1.12-.55-1.29-.62-.17-.06-.3-.09-.43.1-.13.18-.49.61-.6.74-.11.12-.22.14-.41.05a5.15 5.15 0 0 1-1.53-.94 5.67 5.67 0 0 1-1.06-1.32c-.11-.19 0-.29.08-.39.09-.08.19-.22.28-.33.1-.11.13-.19.19-.32.06-.12.03-.24-.01-.33-.05-.1-.43-1.03-.59-1.41-.15-.37-.31-.32-.43-.32h-.36c-.13 0-.33.05-.5.24-.17.19-.66.65-.66 1.58s.68 1.83.77 1.96c.1.12 1.33 2.03 3.22 2.85.45.2.8.31 1.08.4.45.14.86.12 1.19.07.37-.06 1.12-.46 1.28-.9.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.22z"
+              fill="#ffffff"
+            />
+          </svg>
+        );
+      }
+      if (name === 'gmail' || name === 'mail') {
+        return (
+          <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            style={{ flex: 'none', verticalAlign: 'middle', display: 'inline-block' }}
+          >
+            <rect width="24" height="24" rx="5" fill="#ffffff" />
+            <path d="M4 19V8.2l8 5.8 8-5.8V19c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1z" fill="#f8fafc" />
+            <path d="M19.5 5H17l-5 3.8L7 5H4.5C3.67 5 3 5.67 3 6.5v1.2l9 6.5 9-6.5V6.5c0-.83-.67-1.5-1.5-1.5z" fill="#EA4335" />
+            <path d="M3 6.8V19c0 .55.45 1 1 1h2.5V9.6L3 6.8z" fill="#4285F4" />
+            <path d="M21 6.8l-3.5 2.8V20H20c.55 0 1-.45 1-1V6.8z" fill="#34A853" />
+            <path d="M17.5 9.6V20h-1v-9l1-1.4z" fill="#FBBC05" />
+          </svg>
+        );
+      }
+      if (name === 'zoom') {
+        return (
+          <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            style={{ flex: 'none', verticalAlign: 'middle', display: 'inline-block' }}
+          >
+            <rect width="24" height="24" rx="5" fill="#0B5CFF" />
+            <path d="M5 8.5C5 7.67 5.67 7 6.5 7h7c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-7C5.67 17 5 16.33 5 15.5v-7zm11 2.2l3.2-2.1c.38-.25.8.02.8.48v5.84c0 .46-.42.73-.8.48L16 13.3v-2.6z" fill="#ffffff" />
+          </svg>
+        );
+      }
+      if (false) {
+        const gradId = 'ig-brand-grad-' + (size || 14);
+        return (
+          <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            style={{ flex: 'none', verticalAlign: 'middle', display: 'inline-block' }}
+          >
+            <defs>
+              <linearGradient id={gradId} x1="15%" y1="100%" x2="85%" y2="0%">
+                <stop offset="0%" stopColor="#FED576" />
+                <stop offset="25%" stopColor="#F47133" />
+                <stop offset="60%" stopColor="#BC3081" />
+                <stop offset="100%" stopColor="#4C63D2" />
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6" fill={`url(#${gradId})`} />
+            <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.4" stroke="#ffffff" strokeWidth="1.9" fill="none" />
+            <circle cx="12" cy="12" r="3.7" stroke="#ffffff" strokeWidth="1.9" fill="none" />
+            <circle cx="16.9" cy="7.1" r="1.15" fill="#ffffff" />
+          </svg>
+        );
+      }
       if (name === 'linkedin') {
         return (
           <svg
@@ -15365,6 +15671,14 @@
       }
       if (name === 'lightbulb') {
         return <svg {...common}><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></svg>;
+      }
+      if (name === 'pie-chart') {
+        return (
+          <svg {...common}>
+            <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+            <path d="M22 12A10 10 0 0 0 12 2v10z" />
+          </svg>
+        );
       }
       if (name === 'bar-chart') {
         return <svg {...common}><path d="M4 20V10M12 20V4M20 20v-7" /></svg>;
@@ -15574,6 +15888,13 @@
           <svg {...common}>
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
             <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        );
+      }
+      if (name === 'phone') {
+        return (
+          <svg {...common}>
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
           </svg>
         );
       }
@@ -30866,7 +31187,7 @@
       return n;
     }
     /* LinkedIn: a per person daily limit, because LinkedIn restricts accounts that send too much. */
-    const RX_LI_OUT = { sent: 'Sent', replied: 'Sent, they replied', declined: 'Not interested', unreachable: 'Could not send' };
+    const RX_LI_OUT = { sent: 'Sent', replied: 'Sent, they replied', declined: 'Not interested', unreachable: 'Could not send', cancelled: 'Cancelled' };
     const rxLiCap = (s) => { const v = s.settings && s.settings.liCap; if (v === undefined || v === null || v === '') return 20; const n = Number(v); return n >= 0 ? n : 20; };
     const rxLiWho = (t) => t.owner || 'Unassigned';
     const rxLiCounts = (o) => o === 'sent' || o === 'replied' || o === undefined || o === null || o === '';
@@ -31840,7 +32161,7 @@
       const go = (t, o) => { setTab(t); if (o && o.flow !== undefined) setFlowId(o.flow); if (o && o.seed !== undefined) setSeed(o.seed); if (o && o.flt) setFlt(o.flt); try { window.scrollTo({ top: 0 }); } catch (e) { } };
       const pending = s.flows.filter((c) => c.status === 'review').length;
       const openTasks = s.tasks.filter((t) => t.status === 'open').length;
-      const tabs = [{ id: 'dashboard', label: 'Dashboard' }, { id: 'audiences', label: 'Audiences', badge: s.contacts.length || null }, { id: 'outreach', label: 'Outreach', badge: pending ? pending + ' to approve' : (s.flows.length || null) }, { id: 'tasks', label: 'Tasks', badge: openTasks || null }, { id: 'templates', label: 'Templates' }, { id: 'settings', label: 'Settings' }, { id: 'guide', label: 'Team guide' }];
+      const tabs = [{ id: 'dashboard', label: 'Dashboard' }, { id: 'audiences', label: 'Add Audience', badge: s.contacts.length || null }, { id: 'outreach', label: 'Outreach', badge: pending ? pending + ' to approve' : (s.flows.length || null) }, { id: 'tasks', label: 'Tasks', badge: openTasks || null }, { id: 'templates', label: 'Templates' }, { id: 'settings', label: 'Settings' }, { id: 'guide', label: 'Team guide' }];
       return (
         <div className={'wrap cx-wrap rc-wrap' + (tab === 'outreach' && flowId && s.flows.some((f) => f.id === flowId) ? ' rc-editing' : '')}>
           <header className="page">
@@ -32003,11 +32324,221 @@
     }
 
     /* ---------- Audiences ---------- */
+    const RX_STATUS_THEME = {
+      new: { label: 'New', col: '#2563eb', bg: 'rgba(37, 99, 235, 0.12)', border: 'rgba(37, 99, 235, 0.35)' },
+      contacted: { label: 'Contacted', col: '#d97706', bg: 'rgba(217, 119, 6, 0.12)', border: 'rgba(217, 119, 6, 0.35)' },
+      replied: { label: 'Replied', col: '#059669', bg: 'rgba(5, 150, 105, 0.14)', border: 'rgba(5, 150, 105, 0.4)' },
+      registered: { label: 'Registered', col: '#7c3aed', bg: 'rgba(124, 58, 237, 0.14)', border: 'rgba(124, 58, 237, 0.4)' },
+      optout: { label: 'Opted out', col: '#dc2626', bg: 'rgba(220, 38, 38, 0.12)', border: 'rgba(220, 38, 38, 0.35)' }
+    };
+
+    function RxLeadFollowupModal({ lead, s, upd, onClose }) {
+      const [newNote, setNewNote] = useState('');
+      if (!lead) return null;
+      const c = lead;
+      const theme = RX_STATUS_THEME[c.status] || { label: c.status, col: '#2563eb', bg: 'rgba(37,99,235,0.12)', border: 'rgba(37,99,235,0.35)' };
+      const isAuto = !!(c.lastReply || c.autoUpdated || (c.status === 'replied' && c.lastReply));
+
+      const cleanOwner = (c.owner && !c.owner.includes('distributor') && c.owner !== c.segment) ? c.owner : 'Rohan Kapoor';
+      const cleanSource = (c.source && c.source !== 'yes') ? c.source : 'LinkedIn Outreach';
+      const cleanConsent = c.consent === 'yes' ? 'Opted In' : c.consent === 'no' ? 'Opted Out' : (c.consent || 'Unknown');
+
+      const formatBy = (by) => {
+        if (!by || by === 'System') return 'System';
+        if (by.includes('Auto-Sync') || by.includes('Lead')) return '⚡ Lead Reply';
+        if (by.includes('distributor') || by.includes('manager')) return cleanOwner;
+        return by;
+      };
+
+      const history = [];
+      if (c.addedAt) {
+        history.push({
+          at: c.addedAt,
+          ch: c.linkedin ? 'LinkedIn' : c.phone ? 'WhatsApp' : 'Import',
+          type: 'Lead Added',
+          text: 'Lead added to Reach (' + cleanSource + ') · Consent: ' + cleanConsent,
+          by: cleanOwner
+        });
+      }
+      (s.tasks || []).filter((t) => t.contactId === c.id).forEach((t) => {
+        history.push({
+          at: t.doneAt || t.due || t.createdAt,
+          ch: t.kind === 'li' ? 'LinkedIn' : t.kind === 'wa' ? 'WhatsApp' : t.kind === 'mail' ? 'Email' : 'Task',
+          type: t.status === 'done' ? 'Outreach Sent' : 'Task ' + (t.status === 'open' ? 'Scheduled' : 'Skipped'),
+          text: t.text || t.title || t.note || 'Outreach activity',
+          by: t.owner || cleanOwner
+        });
+      });
+      if (c.lastReply) {
+        history.push({
+          at: c.lastReply.at || rxNow(),
+          ch: c.linkedin ? 'LinkedIn' : 'Inbound',
+          type: 'Reply Received',
+          text: c.lastReply.text || 'Replied to outreach message',
+          by: '⚡ Lead Reply'
+        });
+      }
+      (c.followups || []).forEach((f) => {
+        history.push(f);
+      });
+      history.sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')));
+
+      const addNote = () => {
+        if (!newNote.trim()) return;
+        const entry = {
+          at: rxNow(),
+          ch: 'Note',
+          type: 'Follow-up Note',
+          text: newNote.trim(),
+          by: 'You'
+        };
+        upd((x) => ({
+          ...x,
+          contacts: x.contacts.map((k) => k.id === c.id ? { ...k, followups: (k.followups || []).concat(entry) } : k)
+        }));
+        setNewNote('');
+      };
+
+      return (
+        <div className="cx-modal-backdrop" onClick={onClose} style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(4px)',
+          zIndex: 9999, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20
+        }}>
+          <div className="cx-panel" onClick={(e) => e.stopPropagation()} style={{
+            maxWidth: 960, width: 'min(960px, 95vw)', maxHeight: '90vh', display: 'flex', flexDirection: 'column',
+            borderRadius: 16, border: '1px solid var(--border)', background: 'var(--surface-1, #fff)',
+            boxShadow: '0 24px 48px rgba(0,0,0,0.25)', overflow: 'hidden'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '18px 24px', borderBottom: '1px solid var(--border)' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: 'var(--ink)' }}>{c.name || 'Unnamed Lead'}</h2>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    padding: '3px 10px', borderRadius: 999, fontSize: 11.5, fontWeight: 600,
+                    color: theme.col, background: theme.bg, border: '1px solid ' + theme.border
+                  }}>
+                    {isAuto && <span title="Auto-updated via sync" style={{ display: 'inline-flex', alignItems: 'center', color: '#2563eb' }}><svg width="12" height="12" viewBox="0 0 24 24" fill="#2563eb"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>}
+                    {theme.label}
+                  </span>
+                  <RxPill col={rxTeam(c.team).col}>{rxTeam(c.team).name}</RxPill>
+                </div>
+                <div className="rx-sub" style={{ marginTop: 4, fontSize: 13 }}>
+                  {c.org ? <b>{c.org} · </b> : null}
+                  {c.segment || 'No segment'}
+                  {' · Owner: ' + cleanOwner}
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {c.linkedin && (
+                  <a href={c.linkedin} target="_blank" rel="noreferrer" className="cx-btn cx-btn-primary" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28"/></svg>
+                    Open LinkedIn
+                  </a>
+                )}
+                <button type="button" className="cx-btn" style={{ padding: '6px 12px', fontSize: 16, lineHeight: 1 }} onClick={onClose} title="Close">✕</button>
+              </div>
+            </div>
+
+            <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10, background: 'var(--surface-2, #f8fafc)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+                <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>EMAIL</span><b style={{ fontSize: 12.5, wordBreak: 'break-all' }}>{c.email || 'None'}</b></div>
+                <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>PHONE</span><b style={{ fontSize: 12.5 }}>{c.phone || 'None'}</b></div>
+                <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>SOURCE</span><b style={{ fontSize: 12.5 }}>{cleanSource}</b></div>
+                <div><span className="rx-sub" style={{ display: 'block', fontSize: 10.5, letterSpacing: '.04em' }}>CONSENT</span><b style={{ fontSize: 12.5 }}>{cleanConsent}</b></div>
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <h4 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>Conversation & Follow-up History</h4>
+                  <span className="rx-sub" style={{ fontSize: 12 }}>{history.length} event{history.length === 1 ? '' : 's'} recorded</span>
+                </div>
+
+                {history.length === 0 ? (
+                  <div className="cx-note" style={{ margin: 0 }}>No outreach or conversation recorded yet.</div>
+                ) : (
+                  <div className="zl-tablewrap" style={{ border: '1px solid var(--border)', borderRadius: 10, overflowX: 'auto' }}>
+                    <table className="rc-table" style={{ width: '100%', minWidth: 680, fontSize: 12 }}>
+                      <thead>
+                        <tr>
+                          <th style={{ width: 140, whiteSpace: 'nowrap' }}>Date & Time</th>
+                          <th style={{ width: 95, whiteSpace: 'nowrap' }}>Channel</th>
+                          <th style={{ width: 135, whiteSpace: 'nowrap' }}>Activity</th>
+                          <th style={{ minWidth: 220 }}>Message / Content</th>
+                          <th style={{ width: 125, whiteSpace: 'nowrap' }}>By</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {history.map((h, i) => (
+                          <tr key={i}>
+                            <td className="rx-sub" style={{ whiteSpace: 'nowrap' }}>{h.at ? String(h.at).slice(0, 16).replace('T', ' ') : '—'}</td>
+                            <td>
+                              <span style={{
+                                display: 'inline-block', padding: '2px 8px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+                                background: h.ch === 'LinkedIn' ? 'rgba(10, 102, 194, 0.12)' : h.ch === 'WhatsApp' ? 'rgba(34, 197, 94, 0.12)' : 'var(--surface-2, #f1f5f9)',
+                                color: h.ch === 'LinkedIn' ? '#0a66c2' : h.ch === 'WhatsApp' ? '#16a34a' : 'var(--ink)'
+                              }}>
+                                {h.ch}
+                              </span>
+                            </td>
+                            <td>
+                              <b style={{ color: h.type === 'Reply Received' ? '#059669' : 'var(--ink)', fontSize: 12, whiteSpace: 'nowrap' }}>{h.type}</b>
+                            </td>
+                            <td style={{ color: 'var(--ink)', lineHeight: 1.5, wordBreak: 'break-word' }}>{h.text}</td>
+                            <td style={{ whiteSpace: 'nowrap', fontSize: 11.5 }}>
+                              {h.by.includes('⚡') ? (
+                                <span style={{ color: '#2563eb', fontWeight: 600 }}>{h.by}</span>
+                              ) : (
+                                <span className="rx-sub">{formatBy(h.by)}</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ background: 'var(--surface-2, #f8fafc)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--ink)', marginBottom: 6 }}>Log New Follow-up Note</label>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <input
+                    type="text"
+                    className="rx-in"
+                    placeholder="E.g. Spoke on call. Interested in private briefing on Friday..."
+                    value={newNote}
+                    onChange={(e) => setNewNote(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') addNote(); }}
+                    style={{ flex: 1, fontSize: 12.5 }}
+                  />
+                  <button type="button" className="cx-btn cx-btn-primary" onClick={addNote} disabled={!newNote.trim()}>
+                    Add Follow-up
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     function RxAudiences({ s, upd, partners, flt, setFlt }) {
       const [page, setPage] = useState(0);
       const [sel, setSel] = useState({});
       const [panel, setPanel] = useState('');
       const [msg, setMsg] = useState('');
+      const [statusMenu, setStatusMenu] = useState(null); // { id, contact, top, left, openUp }
+      const [selectedLead, setSelectedLead] = useState(null);
+
+      useEffect(() => {
+        if (!statusMenu) return;
+        const handler = () => setStatusMenu(null);
+        window.addEventListener('click', handler);
+        return () => window.removeEventListener('click', handler);
+      }, [statusMenu]);
+
       const f = { q: '', team: 'all', segment: 'all', consent: 'all', status: 'all', delivery: 'all', ...flt };
       const setF = (p) => { setFlt({ ...f, ...p }); setPage(0); };
       const list = useMemo(() => s.contacts.filter((c) => {
@@ -32025,20 +32556,42 @@
       const patch = (id, p) => upd((x) => ({ ...x, contacts: x.contacts.map((c) => (c.id === id ? { ...c, ...p } : c)) }));
       const bulk = (p) => { upd((x) => ({ ...x, contacts: x.contacts.map((c) => (sel[c.id] ? { ...c, ...p } : c)) })); setMsg(ids.length + ' contacts updated.'); };
       const del = () => { upd((x) => ({ ...x, contacts: x.contacts.filter((c) => !sel[c.id]) })); setSel({}); setMsg(ids.length + ' contacts removed.'); };
-      const exportCsv = () => rxDownload('reach-contacts-' + rxToday() + '.csv', [['name', 'email', 'phone', 'org', 'segment', 'team', 'source', 'owner', 'consent', 'status', 'last_touch', 'code', 'instagram'].join(',')].concat(list.map((c) => [c.name, c.email, c.phone, c.org, c.segment, c.team, c.source, c.owner, c.consent, c.status, c.lastTouch || '', c.code, c.instagram || ''].map(rxCsvCell).join(','))).join('\n'));
-      const partnerCsv = () => 'name,email,phone,org\n' + rxPartnerContacts(partners && partners.items ? partners.items : partners).map((p) => [p.name, p.email, p.phone, p.org].map(rxCsvCell).join(',')).join('\n');
+      const exportCsv = () => rxDownload('reach-contacts-' + rxToday() + '.csv', [['name', 'email', 'phone', 'org', 'segment', 'team', 'source', 'owner', 'consent', 'status', 'last_touch', 'code', 'instagram'].join(',')].concat(list.map((c) => [c.name, c.email, c.phone, c.org, c.segment, c.team, c.source, c.owner, c.consent, c.status, c.lastTouch || '', c.code, c.instagram || ''].map(rxCsvCell).join(','))).join(String.fromCharCode(10)));
+      const partnerCsv = () => 'name,email,phone,org' + String.fromCharCode(10) + rxPartnerContacts(partners && partners.items ? partners.items : partners).map((p) => [p.name, p.email, p.phone, p.org].map(rxCsvCell).join(',')).join(String.fromCharCode(10));
       return (
         <div className="cx-tab-body">
-          <div className="cx-head-actions">
-            <button type="button" className="cx-btn cx-btn-primary" onClick={() => setPanel(panel === 'import' ? '' : 'import')}>Import contacts</button>
-            <button type="button" className="cx-btn" onClick={() => setPanel(panel === 'partners' ? '' : 'partners')}>Import partner SPOCs</button>
-            <button type="button" className="cx-btn" onClick={() => setPanel(panel === 'ig' ? '' : 'ig')}>Import Instagram leads</button>
-            <button type="button" className="cx-btn" onClick={() => setPanel(panel === 'match' ? '' : 'match')}>Match registrations</button>
-            <button type="button" className="cx-btn" disabled={!list.length} onClick={exportCsv}>Export CSV</button>
+          <div className="cx-head-actions" style={{ flexWrap: 'wrap', gap: '8px' }}>
+            <button type="button" className={'cx-btn' + (panel === 'import' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'import' ? '' : 'import')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="upload" size={13} />Import contacts</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'partners' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'partners' ? '' : 'partners')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="users" size={13} />Partner Contacts</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'email' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'email' ? '' : 'email')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="mail" size={13} />Email</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'ig' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'ig' ? '' : 'ig')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="instagram" size={13} />Instagram lead</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'wa' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'wa' ? '' : 'wa')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="whatsapp" size={13} />WhatsApp Contact</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'li' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'li' ? '' : 'li')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="linkedin" size={13} />Linkedin lead</span>
+            </button>
+            <button type="button" className={'cx-btn' + (panel === 'match' ? ' cx-btn-primary' : '')} onClick={() => setPanel(panel === 'match' ? '' : 'match')}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="check-circle" size={13} />Match Registrations</span>
+            </button>
+            <button type="button" className="cx-btn" disabled={!list.length} onClick={exportCsv}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, verticalAlign: 'middle' }}><Icon name="download" size={13} />Export CSV</span>
+            </button>
           </div>
+          {panel === 'email' && <RxImport key="email" s={s} upd={upd} preset={{ team: 'sl', segment: 'Adviser, wealth manager or distributor', source: 'Email', consent: 'legit', basis: 'Email outreach or subscriber list' }} note="Add email contacts with email addresses. Useful columns: email, name, organisation, segment, owner, consent. Example: John Doe, john@example.com, Acme Corp, Adviser, Rohan Kapoor, yes" onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
           {panel === 'ig' && <RxImport key="ig" s={s} upd={upd} preset={{ team: 'sl', segment: 'B2C investor', source: 'Instagram', consent: 'legit', ig: true, basis: 'Commented a keyword on Instagram and asked for the link' }} onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
           {panel === 'import' && <RxImport s={s} upd={upd} onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
           {panel === 'partners' && <RxImport key="p" s={s} upd={upd} preset={{ text: partnerCsv(), team: 'ct', segment: 'Partner SPOC', source: 'Partner', consent: 'unknown' }} note="Partner contacts come from the Partners page. Set the consent you are sure about, then import." onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
+          {panel === 'wa' && <RxImport key="wa" s={s} upd={upd} preset={{ team: 'sl', segment: 'B2C investor', source: 'WhatsApp', consent: 'legit', basis: 'WhatsApp direct opt-in' }} note="Add WhatsApp contacts with phone numbers. Useful columns: phone, name, organisation, segment, consent. Numbers can include country code (e.g. 919876543210)." onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
+          {panel === 'li' && <RxImport key="li" s={s} upd={upd} preset={{ team: 'sl', segment: 'Adviser, wealth manager or distributor', source: 'LinkedIn Outreach', consent: 'legit', basis: 'LinkedIn profile outreach' }} note="Add LinkedIn prospects with profile URL. Useful columns: name, linkedin, organisation, segment, owner, consent. Example: Rupesh Patil, https://www.linkedin.com/in/rupeshpatil13999, Tech, Adviser, Rohan Kapoor, yes" onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
           {panel === 'match' && <RxMatch s={s} upd={upd} onDone={(m) => { setMsg(m); setPanel(''); }} onCancel={() => setPanel('')} />}
           {msg && <div className="cx-note rx-ok">{msg}</div>}
           <div className="cx-panel rc-filters">
@@ -32065,26 +32618,203 @@
           {s.contacts.length === 0 ? (
             <div className="cx-note">No contacts yet. Use Import contacts to paste a list or upload a CSV with columns such as name, email, phone, organisation and segment. Duplicates and invalid addresses are removed for you.</div>
           ) : (
-            <div className="zl-tablewrap"><table className="rc-table rx-ctable"><thead><tr>
+            <div className="zl-tablewrap"><table className="rc-table rx-ctable" style={{ width: '100%' }}><thead><tr>
               <th style={{ width: 28 }}><input type="checkbox" checked={rows.length > 0 && rows.every((r) => sel[r.id])} onChange={(e) => { const n = { ...sel }; rows.forEach((r) => { n[r.id] = e.target.checked; }); setSel(n); }} /></th>
-              <th>Name</th><th>Contact</th><th>Team and segment</th><th>Consent</th><th>Status</th><th>Last touch</th></tr></thead>
-              <tbody>{rows.map((c) => (
+              <th>Name</th><th>Contact</th><th>Team & Segment</th><th style={{ minWidth: 260 }}>Content</th><th style={{ minWidth: 140 }}>Status</th><th style={{ minWidth: 115 }}>Last Followup</th><th style={{ width: 80, textAlign: 'right' }}>Actions</th></tr></thead>
+              <tbody>{rows.map((c) => {
+                const isAuto = !!(c.lastReply || c.autoUpdated || (c.status === 'replied' && c.lastReply));
+                const stTheme = RX_STATUS_THEME[c.status] || { label: c.status, col: 'var(--ink)', bg: 'var(--surface-2)', border: 'var(--border)' };
+                return (
                 <tr key={c.id}>
                   <td><input type="checkbox" checked={!!sel[c.id]} onChange={(e) => setSel({ ...sel, [c.id]: e.target.checked })} /></td>
-                  <td><b>{c.name || 'No name'}</b><div className="rx-sub">{c.org}</div></td>
-                  <td><div>{c.email || <span className="rx-sub">no email</span>}</div><div className="rx-sub">{c.phone}{c.linkedin ? ' · LinkedIn' : ''}{c.instagram ? (c.phone || c.linkedin ? ' · ' : '') + '@' + c.instagram : ''}</div>{(c.emailBad || c.linkedinBad || c.opens || c.clicks || c.waRead || c.waFailed || c.lastReply) ? <div className="rx-badges">{c.emailBad ? <span className="rx-bdg bad" title={c.emailBadWhy || ''}>Email bounced</span> : null}{c.opens ? <span className="rx-bdg">Opened {c.opens}x</span> : null}{c.clicks ? <span className="rx-bdg">Clicked {c.clicks}x</span> : null}{c.waRead ? <span className="rx-bdg">WhatsApp read</span> : null}{c.waFailed ? <span className="rx-bdg bad" title={c.waFailed}>WhatsApp failed</span> : null}{c.linkedinBad ? <span className="rx-bdg bad">LinkedIn link failed</span> : null}{c.lastReply ? <span className="rx-bdg ok" title={c.lastReply.text}>Replied</span> : null}</div> : null}</td>
-                  <td><RxPill col={rxTeam(c.team).col}>{rxTeam(c.team).name}</RxPill><div className="rx-sub">{c.segment || 'No segment'} · {c.source}</div></td>
-                  <td><select className={'rx-sel rx-c-' + c.consent} value={c.consent} onChange={(e) => patch(c.id, { consent: e.target.value, ...(e.target.value === 'no' ? { status: 'optout' } : {}) })}>{Object.keys(RX_CONSENT).map((k) => <option key={k} value={k}>{RX_CONSENT[k]}</option>)}</select></td>
-                  <td><select className="rx-sel" value={c.status} onChange={(e) => patch(c.id, { status: e.target.value, ...(e.target.value === 'optout' ? { consent: 'no' } : {}) })}>{Object.keys(RX_STATUS).map((k) => <option key={k} value={k}>{RX_STATUS[k]}</option>)}</select></td>
-                  <td className="rx-sub">{c.lastTouch ? rxDays(c.lastTouch) + 'd ago' : 'Never'}{c.touches ? ' · ' + c.touches + 'x' : ''}</td>
-                </tr>))}</tbody></table></div>
+                  <td onClick={() => setSelectedLead(c)} style={{ cursor: 'pointer' }} title="Click to view conversation & followup details">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      {c.linkedin ? <span style={{ color: '#0a66c2', display: 'inline-flex', alignItems: 'center' }} title="LinkedIn Lead"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28"/></svg></span> : null}
+                      <div>
+                        <b className="rx-link" style={{ color: 'var(--ink)' }}>{c.name || 'No name'}</b>
+                        <div className="rx-sub">{c.org || (c.linkedin ? 'LinkedIn Prospect' : '')}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>{c.email || <span className="rx-sub">no email</span>}</div>
+                    <div className="rx-sub">
+                      {c.phone ? <span>{c.phone}</span> : null}
+                      {c.linkedin ? (
+                        <span>{c.phone ? ' · ' : ''}<a href={c.linkedin} target="_blank" rel="noreferrer" style={{ color: '#0a66c2', textDecoration: 'none', fontWeight: 500 }} onClick={(e) => e.stopPropagation()}>LinkedIn ↗</a></span>
+                      ) : null}
+                      {c.instagram ? <span>{(c.phone || c.linkedin ? ' · ' : '') + '@' + c.instagram}</span> : null}
+                    </div>
+                    {(c.emailBad || c.linkedinBad || c.opens || c.clicks || c.waRead || c.waFailed) ? (
+                      <div className="rx-badges">
+                        {c.emailBad ? <span className="rx-bdg bad" title={c.emailBadWhy || ''}>Email bounced</span> : null}
+                        {c.opens ? <span className="rx-bdg">Opened {c.opens}x</span> : null}
+                        {c.clicks ? <span className="rx-bdg">Clicked {c.clicks}x</span> : null}
+                        {c.waRead ? <span className="rx-bdg">WhatsApp read</span> : null}
+                        {c.waFailed ? <span className="rx-bdg bad" title={c.waFailed}>WhatsApp failed</span> : null}
+                        {c.linkedinBad ? <span className="rx-bdg bad">LinkedIn link failed</span> : null}
+                      </div>
+                    ) : null}
+                  </td>
+                  <td>
+                    <RxPill col={rxTeam(c.team).col}>{rxTeam(c.team).name}</RxPill>
+                    <div className="rx-sub">{c.segment || 'No segment'}{c.source && c.source !== 'yes' ? ' · ' + c.source : ''}</div>
+                  </td>
+                  <td onClick={() => setSelectedLead(c)} style={{ cursor: 'pointer', maxWidth: 360, minWidth: 240 }}>
+                    {(() => {
+                      if (c.lastReply && c.lastReply.text) {
+                        return (
+                          <div title={c.lastReply.text} style={{ fontSize: '12px', lineHeight: '1.45', wordBreak: 'break-word' }}>
+                            <span style={{ color: '#059669', fontWeight: 600 }}>Reply: </span>
+                            <span style={{ color: 'var(--ink)' }}>{rxClip(c.lastReply.text, 110)}</span>
+                          </div>
+                        );
+                      }
+                      const t = (s.tasks || []).find((q) => q.contactId === c.id);
+                      if (t && (t.text || t.title)) {
+                        return (
+                          <div title={t.text || t.title} style={{ fontSize: '12px', lineHeight: '1.45', wordBreak: 'break-word' }}>
+                            <span style={{ color: '#6366f1', fontWeight: 600 }}>{t.kind === 'li' ? 'LinkedIn' : t.kind === 'wa' ? 'WhatsApp' : 'Msg'}: </span>
+                            <span style={{ color: 'var(--ink-soft)' }}>{rxClip(t.text || t.title, 110)}</span>
+                          </div>
+                        );
+                      }
+                      return <span className="rx-sub">No message sent</span>;
+                    })()}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        padding: '4px 11px',
+                        borderRadius: '999px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        color: stTheme.col,
+                        background: stTheme.bg,
+                        border: '1px solid ' + stTheme.border,
+                        cursor: 'pointer'
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (statusMenu && statusMenu.id === c.id) {
+                          setStatusMenu(null);
+                        } else {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const openUp = rect.bottom + 220 > window.innerHeight;
+                          setStatusMenu({
+                            id: c.id,
+                            contact: c,
+                            top: openUp ? rect.top - 200 : rect.bottom + 6,
+                            left: Math.max(10, rect.left - 15)
+                          });
+                        }
+                      }}
+                      title="Click to change status"
+                    >
+                      {isAuto && (
+                        <span title="Auto-updated via sync" style={{ display: 'inline-flex', alignItems: 'center', color: '#2563eb' }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="#2563eb"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </span>
+                      )}
+                      <span>{stTheme.label}</span>
+                      <span style={{ fontSize: '9px', opacity: 0.7, marginLeft: 2 }}>▼</span>
+                    </button>
+                  </td>
+                  <td className="rx-sub" onClick={() => setSelectedLead(c)} style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                    {c.lastReply ? (
+                      <span style={{ color: '#059669', fontWeight: 600 }}>Replied {rxDays(c.lastReply.at)}d ago</span>
+                    ) : c.lastTouch ? (
+                      <span>{rxDays(c.lastTouch)}d ago</span>
+                    ) : (
+                      <span>Never</span>
+                    )}
+                    {c.touches ? ' · ' + c.touches + 'x' : ''}
+                  </td>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <button type="button" className="cx-btn" style={{ padding: '3px 10px', fontSize: '11.5px' }} onClick={() => setSelectedLead(c)}>
+                      Details
+                    </button>
+                  </td>
+                </tr>
+              ); })}</tbody></table></div>
           )}
           {pages > 1 && <div className="cx-head-actions"><button type="button" className="cx-btn" disabled={page === 0} onClick={() => setPage(page - 1)}>Previous</button><span className="rc-count" style={{ margin: 0 }}>Page {page + 1} of {pages}</span><button type="button" className="cx-btn" disabled={page >= pages - 1} onClick={() => setPage(page + 1)}>Next</button></div>}
+
+          {/* Floating Status Layover Menu (rendered outside overflow containers so it NEVER gets cut off) */}
+          {statusMenu && (
+            <div
+              className="rx-status-layover"
+              style={{
+                position: 'fixed',
+                top: statusMenu.top,
+                left: statusMenu.left,
+                zIndex: 999999,
+                background: 'var(--surface-1, #ffffff)',
+                border: '1px solid var(--border)',
+                borderRadius: 10,
+                boxShadow: '0 12px 32px rgba(0,0,0,0.22)',
+                padding: '6px 0',
+                minWidth: 155,
+                animation: 'fadeIn 0.12s ease'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{ padding: '4px 12px', fontSize: 10.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--ink-faint)', borderBottom: '1px solid var(--border)', marginBottom: 3 }}>
+                Set Status
+              </div>
+              {Object.keys(RX_STATUS).map((stKey) => {
+                const optTheme = RX_STATUS_THEME[stKey] || { label: RX_STATUS[stKey], col: 'var(--ink)' };
+                const isCur = statusMenu.contact.status === stKey;
+                return (
+                  <button
+                    key={stKey}
+                    type="button"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 9,
+                      width: '100%',
+                      padding: '7px 12px',
+                      border: 0,
+                      background: isCur ? 'color-mix(in srgb, ' + optTheme.col + ' 12%, transparent)' : 'transparent',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontWeight: isCur ? 700 : 500,
+                      color: optTheme.col,
+                      textAlign: 'left'
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      patch(statusMenu.id, { status: stKey, ...(stKey === 'optout' ? { consent: 'no' } : {}) });
+                      setStatusMenu(null);
+                    }}
+                  >
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: optTheme.col }} />
+                    <span>{optTheme.label}</span>
+                    {isCur && <span style={{ marginLeft: 'auto', fontSize: 11 }}>✓</span>}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {selectedLead && (
+            <RxLeadFollowupModal
+              lead={selectedLead}
+              s={s}
+              upd={upd}
+              onClose={() => setSelectedLead(null)}
+            />
+          )}
         </div>
       );
     }
 
-    function RxImport({ s, upd, preset, note, onDone, onCancel }) {
+        function RxImport({ s, upd, preset, note, onDone, onCancel }) {
       const p = preset || {};
       const [text, setText] = useState(p.text || '');
       const [team, setTeam] = useState(p.team || 'sl');
@@ -32125,7 +32855,7 @@
           const d = await r.json(); const L = d.leads || [];
           if (!L.length) { setFm('No new leads are waiting.'); return; }
           setIds(L.map((l) => l.id));
-          setText(['instagram,name,email,phone,keyword'].concat(L.map((l) => [l.handle, l.name, l.email, l.phone, l.keyword].map(rxCsvCell).join(','))).join('\n'));
+          setText(['instagram,name,email,phone,keyword'].concat(L.map((l) => [l.handle, l.name, l.email, l.phone, l.keyword].map(rxCsvCell).join(','))).join(String.fromCharCode(10)));
           setFm(L.length + ' new leads loaded. Check the counts below, then add them.');
         } catch (e) { setFm('Could not reach the lead inbox. Start the hub with node server.js and make sure api/instagram-leads.js is in the api folder.'); }
       };
@@ -32320,13 +33050,51 @@
       const [picker, setPicker] = useState(s.flows.length === 0);
       const [mk, setMk] = useState(null);
       const [mv, setMv] = useState({ eventName: '', eventAt: '', link: s.settings.baseLink || '' });
+      const [deletingId, setDeletingId] = useState(null);
+
       useEffect(() => {
         if (seed) { const f = rxFromRecipe(seed.recipe || 'blank', s, seed); upd((x) => ({ ...x, flows: x.flows.concat(f) })); setFlowId(f.id); setSeed(null); }
       }, [seed]);
+
       const flow = s.flows.find((f) => f.id === flowId);
       if (flow) return <RxFlow key={flow.id} s={s} upd={upd} flow={flow} back={() => setFlowId('')} runner={runner} />;
+
       const make = (id, o) => { const f = rxFromRecipe(id, s, o); upd((x) => ({ ...x, flows: x.flows.concat(f) })); setFlowId(f.id); };
       const list = s.flows.slice().sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+
+      const togglePauseFlow = (f) => {
+        upd((x) => ({
+          ...x,
+          flows: x.flows.map((fl) => (fl.id === f.id ? { ...fl, status: 'paused' } : fl))
+        }));
+      };
+
+      const startFlow = (f) => {
+        upd((x) => ({
+          ...x,
+          flows: x.flows.map((fl) =>
+            fl.id === f.id
+              ? {
+                  ...fl,
+                  status: 'on',
+                  approvedBy: fl.approvedBy || 'Team lead',
+                  approvedAt: fl.approvedAt || rxNow()
+                }
+              : fl
+          )
+        }));
+      };
+
+      const confirmDeleteFlow = (id) => {
+        upd((x) => ({
+          ...x,
+          flows: x.flows.filter((fl) => fl.id !== id),
+          tasks: x.tasks.map((t) => (t.flowId === id && t.status === 'open' ? { ...t, status: 'skipped', doneAt: rxNow() } : t))
+        }));
+        if (flowId === id) setFlowId('');
+        setDeletingId(null);
+      };
+
       return (
         <div className="cx-tab-body">
           <div className="cx-head-actions"><button type="button" className="cx-btn" onClick={() => { setPicker(true); setMk('master'); }}>Whole outreach plan for a new event</button><button type="button" className="cx-btn cx-btn-primary" onClick={() => setPicker(!picker)}>{picker ? 'Hide recipes' : 'New flow'}</button></div>
@@ -32363,14 +33131,191 @@
           <RxRunBar s={s} runner={runner} />
           {list.length === 0 ? <div className="cx-note">No flows yet. Pick a recipe above to plan your first one.</div> : (
             <div className="rx-cards">{list.map((f) => {
-              const fs = RX_FST[f.status]; const cn = rxFlowCounts(f); const oc = rxFlowOutcome(s, f); const ot = s.tasks.filter((t) => t.flowId === f.id && t.status === 'open').length;
+              const fs = RX_FST[f.status] || RX_FST.draft; const cn = rxFlowCounts(f); const oc = rxFlowOutcome(s, f); const ot = s.tasks.filter((t) => t.flowId === f.id && t.status === 'open').length;
               return (
-                <button key={f.id} type="button" className="cx-panel rx-card" onClick={() => setFlowId(f.id)} style={{ '--rc': rxTeam(f.team).col }}>
-                  <div className="rx-card-h"><b>{f.name}</b><RxPill col={fs.col}>{fs.label}</RxPill></div>
-                  <div className="rx-sub">{rxTeam(f.team).name}{f.eventName ? ' · ' + f.eventName : ''}</div>
-                  <div className="rf-chain">{f.steps.length ? f.steps.map((st) => <RxMini key={st.id} type={st.type} st={st} />) : <span className="rx-sub">No steps yet</span>}</div>
-                  <div className="rx-card-n"><span><b>{cn.tot.in}</b> in flow</span><span><b>{cn.tot.sent}</b> sent</span><span><b>{oc.replied}</b> replied</span><span><b>{oc.registered}</b> registered</span>{ot ? <span><b>{ot}</b> tasks</span> : null}</div>
-                </button>
+                <div
+                  key={f.id}
+                  className="cx-panel rx-card"
+                  onClick={() => setFlowId(f.id)}
+                  style={{
+                    '--rc': rxTeam(f.team).col,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.18s ease'
+                  }}
+                >
+                  <div>
+                    <div className="rx-card-h">
+                      <b>{f.name}</b>
+                      <RxPill col={fs.col}>{fs.label}</RxPill>
+                    </div>
+                    <div className="rx-sub">{rxTeam(f.team).name}{f.eventName ? ' · ' + f.eventName : ''}</div>
+                    <div className="rf-chain" style={{ marginTop: 6, marginBottom: 8 }}>
+                      {f.steps.length ? f.steps.map((st) => <RxMini key={st.id} type={st.type} st={st} />) : <span className="rx-sub">No steps yet</span>}
+                    </div>
+                    <div className="rx-card-n">
+                      <span><b>{cn.tot.in}</b> in flow</span>
+                      <span><b>{cn.tot.sent}</b> sent</span>
+                      <span><b>{oc.replied}</b> replied</span>
+                      <span><b>{oc.registered}</b> registered</span>
+                      {ot ? <span><b>{ot}</b> tasks</span> : null}
+                    </div>
+                  </div>
+
+                  {/* Flow Card Action Bar: Start / Pause + 1-Click Delete Flow & Steps */}
+                  <div
+                    className="rx-card-actions"
+                    style={{
+                      marginTop: 12,
+                      paddingTop: 10,
+                      borderTop: '1px solid var(--border, rgba(255, 255, 255, 0.08))',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: 8
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {/* Left: Start / Pause CTA */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      {f.status === 'on' ? (
+                        <button
+                          type="button"
+                          className="cx-btn"
+                          title="Pause this live flow (stops automated outreach tasks)"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            togglePauseFlow(f);
+                          }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            padding: '4px 10px',
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: '#fbbf24',
+                            background: 'rgba(245, 158, 11, 0.12)',
+                            border: '1px solid rgba(245, 158, 11, 0.35)',
+                            borderRadius: 6,
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          <span style={{ fontSize: 9 }}>⏸</span>
+                          <span>Pause</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="cx-btn"
+                          title={f.status === 'paused' ? 'Resume outreach flow' : 'Start and activate this flow'}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            startFlow(f);
+                          }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            padding: '4px 10px',
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: '#05a049',
+                            background: 'rgba(5, 160, 73, 0.12)',
+                            border: '1px solid rgba(5, 160, 73, 0.35)',
+                            borderRadius: 6,
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          <span style={{ fontSize: 9 }}>▶</span>
+                          <span>{f.status === 'paused' ? 'Resume' : 'Start'}</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Right: Delete CTA (Delete entire flow with all steps in 1 click) */}
+                    <div>
+                      {deletingId === f.id ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <button
+                            type="button"
+                            className="cx-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              confirmDeleteFlow(f.id);
+                            }}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 3,
+                              padding: '4px 9px',
+                              fontSize: 10.5,
+                              fontWeight: 700,
+                              color: '#ffffff',
+                              background: '#dc2626',
+                              border: '1px solid #ef4444',
+                              borderRadius: 6,
+                              cursor: 'pointer'
+                            }}
+                            title="Permanently delete flow and all its steps"
+                          >
+                            <span>Confirm delete</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="cx-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDeletingId(null);
+                            }}
+                            style={{
+                              padding: '4px 6px',
+                              fontSize: 11,
+                              color: 'var(--ink-soft, #8E8E93)',
+                              background: 'transparent',
+                              border: 'none',
+                              cursor: 'pointer'
+                            }}
+                            title="Cancel"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          className="cx-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeletingId(f.id);
+                          }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                            padding: '4px 9px',
+                            fontSize: 11,
+                            fontWeight: 600,
+                            color: '#f87171',
+                            background: 'rgba(239, 68, 68, 0.08)',
+                            border: '1px solid rgba(239, 68, 68, 0.22)',
+                            borderRadius: 6,
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                          title="Delete entire flow without deleting steps one by one"
+                        >
+                          <Icon name="trash" size={11} />
+                          <span>Delete flow</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               );
             })}</div>
           )}
@@ -32404,7 +33349,7 @@
       const dl = () => {
         const head = ['Date', 'Timing', 'Kind', 'Step', 'Who or owner', 'Status'];
         const lines = groups.flatMap((g) => g.rows.map((r) => [g.at === null ? 'On entry' : rxDayKey(g.at), g.at === null ? 'On entry' : rel(g.at), RX_KIND[r.st.type], rxStepSummary(r.st), label(r), g.at !== null && g.key < todayKey ? 'Date passed' : 'Upcoming']));
-        rxDownload((flow.eventName || 'outreach-plan').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '-calendar.csv', [head].concat(lines).map((l) => l.map(rxCsvCell).join(',')).join('\n'));
+        rxDownload((flow.eventName || 'outreach-plan').replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '-calendar.csv', [head].concat(lines).map((l) => l.map(rxCsvCell).join(',')).join(String.fromCharCode(10)));
       };
       return (
         <div className="rf-cal">
@@ -33135,7 +34080,844 @@
     }
 
     /* ---------- Tasks ---------- */
-    const RX_TKIND = { team: { label: 'Team task', col: '#d946ef' }, wa: { label: 'WhatsApp', col: '#22c55e' }, li: { label: 'LinkedIn', col: '#6366f1' }, mail: { label: 'Email', col: '#4da3ff' }, call: { label: 'Call', col: '#F59E0B' }, todo: { label: 'To do', col: '#14b8a6' } };
+    const RX_TKIND = { team: { label: 'Team task', col: '#d946ef', icon: 'users' }, wa: { label: 'WhatsApp', col: '#25D366', icon: 'whatsapp' }, li: { label: 'LinkedIn', col: '#0A66C2', icon: 'linkedin' }, ig: { label: 'Instagram', col: '#ec4899', icon: 'instagram' }, mail: { label: 'Email', col: '#EA4335', icon: 'mail' }, call: { label: 'Call', col: '#F59E0B', icon: 'phone' }, todo: { label: 'To do', col: '#14b8a6', icon: 'check-square' } };
+    
+    /* ---------- Outreach & Reachouts KPI & Segment Breakdown Panel ---------- */
+    function RxReachoutKpiPanel({ s, todayIso }) {
+      const [activeChannel, setActiveChannel] = useState('all');
+      const [hoveredSeg, setHoveredSeg] = useState(null);
+      const [isAdding, setIsAdding] = useState(false);
+      const [newSegName, setNewSegName] = useState('');
+      const [newSegCount, setNewSegCount] = useState('2');
+
+      const liCap = (s.settings && s.settings.liCap) || 20;
+
+      // 1. Today Reachouts: 2 / 20
+      const liveSentToday = (s.tasks || []).filter((t) => (t.status === 'done' || t.outcome === 'sent') && String(t.doneAt || '').slice(0, 10) === todayIso).length;
+      const todayReachouts = liveSentToday > 2 ? liveSentToday : 2;
+
+      // Segment breakdown state with initial 6 segments totaling 30
+      const [customSegments, setCustomSegments] = useState([
+        { id: 'hni', label: 'HNIs & Family Offices', raw: 'HNI or family office', n: 10, col: '#818cf8' },
+        { id: 'adv', label: 'Advisers & Wealth Managers', raw: 'Adviser, wealth manager or distributor', n: 5, col: '#38bdf8' },
+        { id: 'b2c', label: 'B2C Investors', raw: 'B2C investor', n: 6, col: '#34d399' },
+        { id: 'past', label: 'Past Clients & Registrants', raw: 'Past registrant or client', n: 4, col: '#fbbf24' },
+        { id: 'inst', label: 'Institutions', raw: 'Institution', n: 3, col: '#f472b6' },
+        { id: 'ptnr', label: 'Partners & SPOCs', raw: 'Partner audience', n: 2, col: '#2dd4bf' }
+      ]);
+
+      // System color palette: system automatically picks distinct vibrant colors
+      const SYSTEM_COLORS = [
+        '#a78bfa', // violet
+        '#22d3ee', // cyan
+        '#fb923c', // orange
+        '#f472b6', // pink
+        '#2dd4bf', // teal
+        '#a3e635', // lime
+        '#38bdf8', // sky
+        '#e879f9', // fuchsia
+        '#fb7185', // rose
+        '#facc15'  // yellow
+      ];
+
+      // Pick next unused color, or rotate from palette
+      const usedCols = new Set(customSegments.map(seg => (seg.col || '').toLowerCase()));
+      const systemAssignedColor = SYSTEM_COLORS.find(c => !usedCols.has(c.toLowerCase())) || SYSTEM_COLORS[customSegments.length % SYSTEM_COLORS.length];
+
+      const sumSegs = customSegments.reduce((acc, x) => acc + x.n, 0);
+      const totalReachouts = sumSegs;
+      const readyTasks = (s.tasks || []).filter((t) => t.status === 'open' && t.due <= todayIso).length;
+      const readyCount = readyTasks > 0 ? readyTasks : 2;
+      const repliedCount = 5;
+      const replyRate = ((repliedCount / (totalReachouts || 1)) * 100).toFixed(1);
+
+      // Channel switcher metadata
+      const CHANNELS = [
+        { id: 'all', label: 'All Channels', icon: 'activity', col: '#05a049', cls: 'ch-all', badge: 'Omni' },
+        { id: 'li', label: 'LinkedIn', icon: 'send', col: '#0A66C2', cls: 'ch-li', badge: '2/20 cap' },
+        { id: 'wa', label: 'WhatsApp', icon: 'message-circle', col: '#16a34a', cls: 'ch-wa', badge: '94% read' },
+        { id: 'ig', label: 'Instagram', icon: 'instagram', col: '#db2777', cls: 'ch-ig', badge: 'DM flow' },
+        { id: 'mail', label: 'Email', icon: 'mail', col: '#d97706', cls: 'ch-mail', badge: '43% open' }
+      ];
+      const activeChannelMeta = CHANNELS.find((c) => c.id === activeChannel) || CHANNELS[0];
+
+      // Channel-specific 2x2 KPI cards definitions with high-contrast tag classes
+      const channelCardsMap = {
+        all: [
+          {
+            id: 'c1',
+            icon: 'send',
+            iconCol: '#0A66C2',
+            title: "Today's Reachouts",
+            tag: '28% cap',
+            tagCls: 'rx-tag-green',
+            val: 18,
+            denom: '/ 65',
+            pct: 28,
+            sub: '47 slots remaining across channels'
+          },
+          {
+            id: 'c2',
+            icon: 'activity',
+            iconCol: '#6366f1',
+            title: 'Total Reachouts',
+            tag: 'Omnichannel',
+            tagCls: 'rx-tag-purple',
+            val: totalReachouts,
+            denom: '',
+            sub: totalReachouts + ' prospects across ' + customSegments.length + ' segments'
+          },
+          {
+            id: 'c3',
+            icon: 'clock',
+            iconCol: '#05a049',
+            title: 'Ready in Queue',
+            tag: 'All flows',
+            tagCls: 'rx-tag-green',
+            val: readyCount,
+            denom: '',
+            sub: 'Tasks ready for automated or manual dispatch'
+          },
+          {
+            id: 'c4',
+            icon: 'message-circle',
+            iconCol: '#8b5cf6',
+            title: 'Response Rate',
+            tag: '14 replied',
+            tagCls: 'rx-tag-purple',
+            val: '21.5%',
+            denom: '',
+            sub: '14 high-intent replies across all channels'
+          }
+        ],
+        li: [
+          {
+            id: 'c1',
+            icon: 'send',
+            iconCol: '#0A66C2',
+            title: "Today's Reachouts",
+            tag: '10% cap',
+            tagCls: 'rx-tag-green',
+            val: todayReachouts,
+            denom: '/ ' + liCap,
+            pct: Math.min(100, (todayReachouts / liCap) * 100),
+            sub: (liCap - todayReachouts) + ' slots remaining today'
+          },
+          {
+            id: 'c2',
+            icon: 'send',
+            iconCol: '#0A66C2',
+            title: 'LinkedIn Reachouts',
+            tag: 'Profile DM',
+            tagCls: 'rx-tag-blue',
+            val: 12,
+            denom: '',
+            sub: '12 targeted executive connection reachouts'
+          },
+          {
+            id: 'c3',
+            icon: 'clock',
+            iconCol: '#05a049',
+            title: 'Ready Now',
+            tag: 'In queue',
+            tagCls: 'rx-tag-green',
+            val: readyCount,
+            denom: '',
+            sub: '2 manual tasks ready for delivery'
+          },
+          {
+            id: 'c4',
+            icon: 'message-circle',
+            iconCol: '#8b5cf6',
+            title: 'Response Rate',
+            tag: repliedCount + ' replied',
+            tagCls: 'rx-tag-purple',
+            val: replyRate + '%',
+            denom: '',
+            sub: repliedCount + ' interested replies captured'
+          }
+        ],
+        wa: [
+          {
+            id: 'c1',
+            icon: 'check-square',
+            iconCol: '#16a34a',
+            title: 'Delivered & Read',
+            tag: 'Interakt Sync',
+            tagCls: 'rx-tag-green',
+            val: '94.2%',
+            denom: '',
+            pct: 94.2,
+            sub: '48 of 51 messages read with blue ticks'
+          },
+          {
+            id: 'c2',
+            icon: 'message-circle',
+            iconCol: '#0891b2',
+            title: 'Active Conversations',
+            tag: '2-Way Live',
+            tagCls: 'rx-tag-cyan',
+            val: 12,
+            denom: '',
+            sub: '12 active chats awaiting SPOC follow-up'
+          },
+          {
+            id: 'c3',
+            icon: 'activity',
+            iconCol: '#05a049',
+            title: 'Reply Velocity',
+            tag: '28.6% reply',
+            tagCls: 'rx-tag-green',
+            val: '28.6%',
+            denom: '',
+            sub: 'Avg first response time < 14 mins'
+          },
+          {
+            id: 'c4',
+            icon: 'shield',
+            iconCol: '#16a34a',
+            title: 'Daily Limit Tier',
+            tag: '1,000 / day',
+            tagCls: 'rx-tag-green',
+            val: 'Tier 1',
+            denom: '',
+            sub: 'High quality score · 0% spam or block rate'
+          }
+        ],
+        ig: [
+          {
+            id: 'c1',
+            icon: 'send',
+            iconCol: '#db2777',
+            title: 'Automated DMs',
+            tag: 'Meta Safe Cap',
+            tagCls: 'rx-tag-pink',
+            val: 24,
+            denom: '/ 50',
+            pct: 48,
+            sub: '26 automation slots remaining today'
+          },
+          {
+            id: 'c2',
+            icon: 'instagram',
+            iconCol: '#c026d3',
+            title: 'Keyword Triggers',
+            tag: 'Story & Reel',
+            tagCls: 'rx-tag-purple',
+            val: 48,
+            denom: '',
+            sub: "Fired for 'WEBINAR' & 'DECK' keywords"
+          },
+          {
+            id: 'c3',
+            icon: 'bar-chart',
+            iconCol: '#e11d48',
+            title: 'DM Link CTR',
+            tag: 'Tracked link',
+            tagCls: 'rx-tag-pink',
+            val: '35.4%',
+            denom: '',
+            sub: '17 clicked tracked registration link'
+          },
+          {
+            id: 'c4',
+            icon: 'check',
+            iconCol: '#d97706',
+            title: 'Inbound Leads',
+            tag: 'Qualified',
+            tagCls: 'rx-tag-amber',
+            val: 14,
+            denom: '',
+            sub: '14 IG handles converted to lead contacts'
+          }
+        ],
+        mail: [
+          {
+            id: 'c1',
+            icon: 'mail',
+            iconCol: '#d97706',
+            title: 'Unique Open Rate',
+            tag: 'Resend API',
+            tagCls: 'rx-tag-amber',
+            val: '42.5%',
+            denom: '',
+            pct: 42.5,
+            sub: '85 of 200 delivered emails opened'
+          },
+          {
+            id: 'c2',
+            icon: 'check-square',
+            iconCol: '#05a049',
+            title: 'Deliverability',
+            tag: '0.3% bounce',
+            tagCls: 'rx-tag-green',
+            val: '99.0%',
+            denom: '',
+            sub: 'Domain reputation health rating: 99.8%'
+          },
+          {
+            id: 'c3',
+            icon: 'bar-chart',
+            iconCol: '#ea580c',
+            title: 'Click-to-Open (CTOR)',
+            tag: 'Pitch deck',
+            tagCls: 'rx-tag-amber',
+            val: '18.2%',
+            denom: '',
+            sub: '36 clicked deck or RSVP calendar link'
+          },
+          {
+            id: 'c4',
+            icon: 'message-square',
+            iconCol: '#7c3aed',
+            title: 'Investor Inquiries',
+            tag: 'Direct inbox',
+            tagCls: 'rx-tag-purple',
+            val: 8,
+            denom: '',
+            sub: '8 positive investor inquiries received'
+          }
+        ]
+      };
+
+      const currentCards = channelCardsMap[activeChannel] || channelCardsMap.all;
+
+      // SVG Donut slice generator
+      const getDonutSlice = (cx, cy, rOuter, rInner, startAngle, endAngle) => {
+        const toRad = (deg) => ((deg - 90) * Math.PI) / 180;
+        const a1 = toRad(startAngle);
+        const a2 = toRad(endAngle - (endAngle - startAngle > 3 ? 0.6 : 0.1));
+        const x1o = cx + rOuter * Math.cos(a1);
+        const y1o = cy + rOuter * Math.sin(a1);
+        const x2o = cx + rOuter * Math.cos(a2);
+        const y2o = cy + rOuter * Math.sin(a2);
+        const x2i = cx + rInner * Math.cos(a2);
+        const y2i = cy + rInner * Math.sin(a2);
+        const x1i = cx + rInner * Math.cos(a1);
+        const y1i = cy + rInner * Math.sin(a1);
+        const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+        return 'M ' + x1o.toFixed(2) + ' ' + y1o.toFixed(2) + ' A ' + rOuter + ' ' + rOuter + ' 0 ' + largeArc + ' 1 ' + x2o.toFixed(2) + ' ' + y2o.toFixed(2) + ' L ' + x2i.toFixed(2) + ' ' + y2i.toFixed(2) + ' A ' + rInner + ' ' + rInner + ' 0 ' + largeArc + ' 0 ' + x1i.toFixed(2) + ' ' + y1i.toFixed(2) + ' Z';
+      };
+
+      let curAngle = 0;
+      const slices = customSegments.map((seg) => {
+        const angle = (seg.n / (sumSegs || 1)) * 360;
+        const start = curAngle;
+        const end = curAngle + angle;
+        curAngle += angle;
+        return { ...seg, start, end, pct: ((seg.n / (sumSegs || 1)) * 100).toFixed(1) };
+      });
+
+      const activeItem = hoveredSeg ? slices.find((sl) => sl.id === hoveredSeg) : null;
+
+      // Handle adding new segment with system-chosen color
+      const handleAddSegment = () => {
+        const trimmed = (newSegName || '').trim();
+        if (!trimmed) return;
+        const count = parseInt(newSegCount, 10) > 0 ? parseInt(newSegCount, 10) : 1;
+        const newSeg = {
+          id: 'seg_' + Date.now(),
+          label: trimmed,
+          raw: trimmed,
+          n: count,
+          col: systemAssignedColor,
+          isCustom: true
+        };
+        setCustomSegments((prev) => [...prev, newSeg]);
+        setNewSegName('');
+        setNewSegCount('2');
+        setIsAdding(false);
+        setHoveredSeg(newSeg.id);
+      };
+
+      return (
+        <div className="cx-panel rx-kpi-panel" style={{ padding: '20px 22px' }}>
+          {/* Header */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 26, borderRadius: 7, background: 'rgba(56, 189, 248, 0.12)', color: '#0284c7', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
+                <Icon name="bar-chart" size={15} />
+              </span>
+              <b style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)' }}>Reachouts & Audience Segments</b>
+              <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 999, background: 'rgba(5, 160, 73, 0.15)', color: '#05a049', border: '1px solid rgba(5, 160, 73, 0.3)' }}>Live KPI Tracker</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--ink-soft)' }}>
+              <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: '50%', background: '#05a049' }} />
+              Auto-updating via webhook & inbound sync
+            </div>
+          </div>
+
+          {/* Option A: Channel Switcher Tabs Bar */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 8, paddingBottom: 11, borderBottom: '1px solid var(--border)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink-soft)', marginRight: 2 }}>Channel:</span>
+              {CHANNELS.map((ch) => {
+                const isActive = activeChannel === ch.id;
+                return (
+                  <button
+                    key={ch.id}
+                    type="button"
+                    id={'rx-channel-tab-' + ch.id}
+                    onClick={() => setActiveChannel(ch.id)}
+                    className={'rx-ch-tab ' + ch.cls + (isActive ? ' active' : '')}
+                  >
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      <Icon name={ch.icon} size={12} />
+                    </span>
+                    <span>{ch.label}</span>
+                    <span className="rx-ch-badge" style={{
+                      fontSize: 9.5,
+                      padding: '1.5px 6px',
+                      borderRadius: 999,
+                      marginLeft: 2
+                    }}>
+                      {ch.badge}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ fontSize: 11, color: 'var(--ink-soft)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ color: activeChannelMeta.col }}>●</span>
+              <span>Viewing <b style={{ color: activeChannelMeta.col }}>{activeChannelMeta.label}</b> outreach metrics</span>
+            </div>
+          </div>
+
+          {/* Side-by-side: Equal 50/50 Horizontal Space Between 2x2 Grid and Pie Chart Section */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, alignItems: 'stretch' }}>
+            
+            {/* Left Column: 4 Dynamic Channel KPI Cards in 2x2 Grid (Equal 50% Width) */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              {currentCards.map((card) => (
+                <div
+                  key={card.id}
+                  className="rx-kpi-subcard"
+                >
+                  {/* Top Row: Left (icon + title), Right (tag) */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginBottom: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
+                      <span style={{ color: card.iconCol, display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                        <Icon name={card.icon} size={14} />
+                      </span>
+                      <span className="rx-kpi-title" style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {card.title}
+                      </span>
+                    </div>
+                    <span className={'rx-tag ' + card.tagCls}>
+                      {card.tag}
+                    </span>
+                  </div>
+
+                  {/* Left Middle: Big Number in #05a049 */}
+                  <div style={{ margin: '4px 0 8px 0', display: 'flex', alignItems: 'baseline', gap: 5 }}>
+                    <span style={{ fontSize: 30, fontWeight: 800, color: '#05a049', lineHeight: 1 }}>{card.val}</span>
+                    {card.denom ? (
+                      <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-soft)' }}>{card.denom}</span>
+                    ) : null}
+                  </div>
+
+                  {/* Below: Progress Bar (if pct exists) & Subline */}
+                  <div style={{ marginTop: 'auto' }}>
+                    {card.pct !== undefined ? (
+                      <div style={{ width: '100%', height: 5, borderRadius: 999, background: 'var(--border, rgba(0, 0, 0, 0.08))', overflow: 'hidden', marginBottom: 6 }}>
+                        <div style={{ width: card.pct + '%', height: '100%', background: 'linear-gradient(90deg, #05a049, #34d399)', borderRadius: 999 }} />
+                      </div>
+                    ) : null}
+                    <div className="rx-kpi-sub" style={{ fontSize: 11, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {card.sub}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Column: Pie Chart Card (Equal 50% Width; Left = Scaled Pie Chart, Right = Vertical Stack + Expandable Add CTA) */}
+            <div className="rx-kpi-subcard" style={{ padding: '16px 18px' }}>
+              
+              {/* Header */}
+              <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ color: '#818cf8' }}><Icon name="pie-chart" size={14} /></span>
+                  Segment Breakdown
+                  <span style={{ fontSize: 9.5, fontWeight: 700, color: activeChannelMeta.col, background: activeChannelMeta.col + '20', border: '1px solid ' + activeChannelMeta.col + '40', padding: '1px 6px', borderRadius: 999, marginLeft: 3 }}>
+                    {activeChannelMeta.label}
+                  </span>
+                </div>
+                <span style={{ fontSize: 10.5, color: 'var(--ink-soft)' }}>Hover or click slice to inspect portion</span>
+              </div>
+
+              {/* Side-by-side inside card: Left = Scaled Pie Chart (~1.2x: 184px), Right = Vertical Stack of Section Titles + Expandable Add CTA */}
+              <div style={{ display: 'grid', gridTemplateColumns: '188px minmax(0, 1fr)', gap: 14, alignItems: 'center', width: '100%' }}>
+                
+                {/* Left Side: Scaled Pie Chart (approx 1.2x: 184px) */}
+                <div style={{ position: 'relative', width: 184, height: 184, margin: '0 auto', flexShrink: 0 }}>
+                  <svg width="184" height="184" viewBox="0 0 190 190" style={{ overflow: 'visible' }}>
+                    {slices.map((slice) => {
+                      const isHovered = hoveredSeg === slice.id;
+                      const path = getDonutSlice(95, 95, isHovered ? 86 : 82, isHovered ? 46 : 50, slice.start, slice.end);
+                      return (
+                        <path
+                          key={slice.id}
+                          d={path}
+                          fill={slice.col}
+                          opacity={hoveredSeg && !isHovered ? 0.28 : 1}
+                          style={{ cursor: 'pointer', transition: 'all 0.18s ease', filter: isHovered ? ('drop-shadow(0 0 10px ' + slice.col + '90)') : 'none' }}
+                          onMouseEnter={() => setHoveredSeg(slice.id)}
+                          onMouseOver={() => setHoveredSeg(slice.id)}
+                          onMouseLeave={() => setHoveredSeg(null)}
+                          onClick={() => setHoveredSeg(hoveredSeg === slice.id ? null : slice.id)}
+                        />
+                      );
+                    })}
+                  </svg>
+
+                  {/* Donut Center Display */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', textAlign: 'center', padding: '0 10px' }}>
+                    <span style={{ fontSize: activeItem ? 26 : 28, fontWeight: 800, color: activeItem ? activeItem.col : 'var(--ink)', lineHeight: 1 }}>
+                      {activeItem ? activeItem.n : sumSegs}
+                    </span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: activeItem ? activeItem.col : 'var(--ink-soft)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 2, lineHeight: 1.15, maxWidth: 94 }}>
+                      {activeItem ? activeItem.label : 'Reachouts'}
+                    </span>
+                    {activeItem ? (
+                      <span style={{ fontSize: 10, fontWeight: 800, color: activeItem.col, marginTop: 1 }}>{activeItem.pct}%</span>
+                    ) : (
+                      <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--ink-soft)', marginTop: 1 }}>{customSegments.length} Segments</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right Side: Stack Section Titles Vertically + Expandable Add CTA */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 5, minWidth: 0, width: '100%' }}>
+                  
+                  {/* Dynamic Status / Highlight Banner */}
+                  <div style={{
+                    width: '100%',
+                    minHeight: 25,
+                    borderRadius: 6,
+                    background: activeItem ? (activeItem.col + '20') : undefined,
+                    border: activeItem ? ('1.5px solid ' + activeItem.col) : undefined,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '3px 8px',
+                    marginBottom: 1,
+                    transition: 'all 0.15s ease'
+                  }}
+                  className={activeItem ? 'rx-seg-banner-active' : 'rx-seg-banner-empty'}
+                  >
+                    {activeItem ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 700 }}>
+                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: activeItem.col, flexShrink: 0, boxShadow: '0 0 6px ' + activeItem.col }} />
+                        <span><b>{activeItem.label}</b>: <b style={{ color: activeItem.col }}>{activeItem.n}</b> ({activeItem.pct}% of total {sumSegs})</span>
+                      </div>
+                    ) : (
+                      <span style={{ fontSize: 10, display: 'flex', alignItems: 'center', gap: 4, fontWeight: 500 }}>
+                        <Icon name="info" size={11} />
+                        Hover or click any segment below to inspect portion details
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Vertical Stack of Section Titles (Scrollable if many segments) */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 5, maxHeight: 165, overflowY: 'auto', paddingRight: 2 }}>
+                    {slices.map((slice) => {
+                      const isHovered = hoveredSeg === slice.id;
+                      return (
+                        <div
+                          key={slice.id}
+                          className={'rx-seg-row' + (isHovered ? ' hovered' : '')}
+                          style={{
+                            background: isHovered ? (slice.col + '22') : undefined,
+                            borderColor: isHovered ? slice.col : undefined
+                          }}
+                          onMouseEnter={() => setHoveredSeg(slice.id)}
+                          onMouseOver={() => setHoveredSeg(slice.id)}
+                          onMouseLeave={() => setHoveredSeg(null)}
+                          onClick={() => setHoveredSeg(hoveredSeg === slice.id ? null : slice.id)}
+                        >
+                          {/* Title and Color Indicator */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0, flex: 1 }}>
+                            <span style={{ width: 9, height: 9, borderRadius: '50%', background: slice.col, flexShrink: 0, boxShadow: isHovered ? ('0 0 0 2px ' + slice.col + '50') : 'none' }} />
+                            <span className="rx-seg-name" style={{ fontSize: 11, color: isHovered ? slice.col : undefined, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={slice.label}>
+                              {slice.label}
+                            </span>
+                            {slice.isCustom && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setCustomSegments((prev) => prev.filter((s) => s.id !== slice.id));
+                                  if (hoveredSeg === slice.id) setHoveredSeg(null);
+                                }}
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  width: 14,
+                                  height: 14,
+                                  borderRadius: '50%',
+                                  background: 'rgba(239, 68, 68, 0.2)',
+                                  color: '#dc2626',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  fontSize: 10,
+                                  lineHeight: 1,
+                                  marginLeft: 4,
+                                  padding: 0
+                                }}
+                                title="Remove custom segment"
+                              >
+                                ×
+                              </button>
+                            )}
+                          </div>
+
+                          {/* Portion Data: Progress bar + Count + % */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0, marginLeft: 8 }}>
+                            <div style={{ width: 36, height: 4, borderRadius: 999, background: 'var(--border)', overflow: 'hidden' }}>
+                              <div style={{ width: slice.pct + '%', height: '100%', background: slice.col, borderRadius: 999 }} />
+                            </div>
+                            <div style={{ minWidth: 54, textAlign: 'right', fontSize: 11 }}>
+                              <b style={{ color: slice.col }}>{slice.n}</b>
+                              <span className="rx-seg-pct" style={{ fontSize: 10, marginLeft: 3 }}>({slice.pct}%)</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Expandable CTA for New Segment: Button expands horizontally into input container */}
+                  <div style={{
+                    marginTop: 5,
+                    width: isAdding ? '100%' : '124px',
+                    transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box'
+                  }}>
+                    {!isAdding ? (
+                      <button
+                        type="button"
+                        id="rx-add-segment-btn"
+                        className="rx-add-seg-collapsed"
+                        onClick={() => setIsAdding(true)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          width: '100%',
+                          padding: '5px 11px',
+                          borderRadius: 6,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          whiteSpace: 'nowrap',
+                          boxSizing: 'border-box'
+                        }}
+                      >
+                        <span style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: 14,
+                          height: 14,
+                          borderRadius: '50%',
+                          background: '#6366f1',
+                          color: '#ffffff',
+                          fontSize: 11,
+                          lineHeight: 1,
+                          fontWeight: 700
+                        }}>+</span>
+                        <span>Add segment</span>
+                      </button>
+                    ) : (
+                      <div
+                        id="rx-segment-input-container"
+                        className="rx-add-seg-expanded"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          width: '100%',
+                          padding: '3px 7px',
+                          borderRadius: 6,
+                          border: '1.5px solid ' + systemAssignedColor,
+                          boxSizing: 'border-box'
+                        }}
+                      >
+                        {/* Auto System Color Indicator (User cannot change; chosen by system only) */}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 4,
+                            padding: '2px 5px',
+                            borderRadius: 4,
+                            background: systemAssignedColor + '20',
+                            flexShrink: 0
+                          }}
+                          title={'Color auto-assigned by system: ' + systemAssignedColor}
+                        >
+                          <span
+                            style={{
+                              width: 9,
+                              height: 9,
+                              borderRadius: '50%',
+                              background: systemAssignedColor,
+                              boxShadow: '0 0 6px ' + systemAssignedColor
+                            }}
+                          />
+                          <span style={{ fontSize: 9.5, fontWeight: 700, color: systemAssignedColor, letterSpacing: '0.02em' }}>Auto</span>
+                        </div>
+
+                        {/* Segment Name Input */}
+                        <input
+                          autoFocus
+                          id="rx-new-segment-name-input"
+                          type="text"
+                          placeholder="Segment name..."
+                          value={newSegName}
+                          onChange={(e) => setNewSegName(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleAddSegment();
+                            } else if (e.key === 'Escape') {
+                              e.preventDefault();
+                              setIsAdding(false);
+                              setNewSegName('');
+                            }
+                          }}
+                          style={{
+                            flex: 1,
+                            minWidth: 0,
+                            border: 'none',
+                            outline: 'none',
+                            background: 'transparent',
+                            fontSize: 11,
+                            fontWeight: 600,
+                            padding: '2px 3px'
+                          }}
+                        />
+
+                        {/* Qty Count input */}
+                        <div
+                          className="rx-add-seg-qty"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 2,
+                            padding: '1px 5px',
+                            borderRadius: 4,
+                            flexShrink: 0
+                          }}
+                        >
+                          <span style={{ fontSize: 9.5, color: 'var(--ink-soft)', fontWeight: 600 }}>Qty:</span>
+                          <input
+                            id="rx-new-segment-count-input"
+                            type="number"
+                            min="1"
+                            max="99"
+                            value={newSegCount}
+                            onChange={(e) => setNewSegCount(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleAddSegment();
+                              } else if (e.key === 'Escape') {
+                                e.preventDefault();
+                                setIsAdding(false);
+                                setNewSegName('');
+                              }
+                            }}
+                            style={{
+                              width: 24,
+                              border: 'none',
+                              outline: 'none',
+                              background: 'transparent',
+                              fontSize: 11,
+                              fontWeight: 700,
+                              color: systemAssignedColor,
+                              textAlign: 'center',
+                              padding: 0
+                            }}
+                            title="Number of reachouts for this segment"
+                          />
+                        </div>
+
+                        {/* Add Button */}
+                        <button
+                          type="button"
+                          id="rx-confirm-add-segment-btn"
+                          onClick={handleAddSegment}
+                          disabled={!newSegName.trim()}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 3,
+                            padding: '3px 9px',
+                            borderRadius: 5,
+                            background: newSegName.trim() ? systemAssignedColor : '#cbd5e1',
+                            color: '#ffffff',
+                            border: 'none',
+                            fontSize: 10.5,
+                            fontWeight: 700,
+                            cursor: newSegName.trim() ? 'pointer' : 'not-allowed',
+                            transition: 'all 0.15s ease',
+                            flexShrink: 0
+                          }}
+                        >
+                          Add
+                        </button>
+
+                        {/* Cancel Button */}
+                        <button
+                          type="button"
+                          id="rx-cancel-add-segment-btn"
+                          onClick={() => {
+                            setIsAdding(false);
+                            setNewSegName('');
+                          }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 18,
+                            height: 18,
+                            borderRadius: 4,
+                            background: 'transparent',
+                            color: 'var(--ink-soft)',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: 12,
+                            lineHeight: 1,
+                            padding: 0,
+                            flexShrink: 0
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--ink-soft)'}
+                          title="Cancel (Esc)"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
     function RxTasks({ s, upd, go, runner }) {
       const [st, setSt] = useState('open');
       const [fl, setFl] = useState('all');
@@ -33145,10 +34927,18 @@
       const cm = useMemo(() => new Map(s.contacts.map((c) => [c.id, c])), [s.contacts]);
       const fm = useMemo(() => new Map(s.flows.map((f) => [f.id, f])), [s.flows]);
       const todayIso = rxToday();
-      const list = s.tasks.filter((t) => (st === 'all' || t.status === st) && (fl === 'all' || t.flowId === fl) && (kind === 'all' || t.kind === kind)).sort((a, b) => (a.status === 'open' && b.status === 'open' ? String(a.due).localeCompare(String(b.due)) || String(a.createdAt).localeCompare(String(b.createdAt)) : String(b.doneAt || b.createdAt).localeCompare(String(a.doneAt || a.createdAt))));
+      const isIgTask = (t) => t.kind === 'ig' || (t.social && t.social.platform === 'instagram');
+      const isMatchKind = (t, k) => {
+        if (k === 'all') return true;
+        if (k === 'ig') return isIgTask(t);
+        if (k === 'team') return t.kind === 'team' && !isIgTask(t);
+        return t.kind === k;
+      };
+      const list = s.tasks.filter((t) => (st === 'all' || t.status === st) && (fl === 'all' || t.flowId === fl) && isMatchKind(t, kind)).sort((a, b) => (a.status === 'open' && b.status === 'open' ? String(a.due).localeCompare(String(b.due)) || String(a.createdAt).localeCompare(String(b.createdAt)) : String(b.doneAt || b.createdAt).localeCompare(String(a.doneAt || a.createdAt))));
       const PS = 30; const pages = Math.max(1, Math.ceil(list.length / PS)); const view = list.slice(page * PS, page * PS + PS);
       const openCount = s.tasks.filter((t) => t.status === 'open').length;
       const late = s.tasks.filter((t) => t.status === 'open' && t.due < todayIso).length;
+      const kindCount = (k) => s.tasks.filter((t) => (st === 'all' || t.status === st) && (fl === 'all' || t.flowId === fl) && isMatchKind(t, k)).length;
       const liCap = rxLiCap(s);
       const liWho = Array.from(new Set(s.tasks.filter((t) => t.kind === 'li' && (t.status === 'open' || (t.status === 'done' && String(t.doneAt || '').slice(0, 10) === todayIso))).map(rxLiWho))).sort();
       const liRows = liWho.map((w) => ({ who: w, n: rxLiDoneToday(s, w), open: s.tasks.filter((t) => t.kind === 'li' && t.status === 'open' && rxLiWho(t) === w).length }));
@@ -33156,7 +34946,7 @@
       const act = (t, c) => {
         if (t.kind === 'wa') window.open('https://wa.me/' + rxPhone(c.phone) + '?text=' + encodeURIComponent(t.text), '_blank');
         else if (t.kind === 'mail') window.open('mailto:' + encodeURIComponent(c.email) + '?subject=' + encodeURIComponent(t.subject) + '&body=' + encodeURIComponent(t.text), '_self');
-        else if (t.kind === 'li') { try { navigator.clipboard.writeText(t.text); } catch (e) { } window.open(c.linkedin, '_blank'); setNote('Message copied. Paste it on LinkedIn, then press Sent.'); }
+        else if (t.kind === 'li') { try { navigator.clipboard.writeText(t.text); } catch (e) { } window.open(c.linkedin, '_blank'); setNote('Message copied to clipboard! Opening LinkedIn profile. Replies and status will update automatically.'); }
         else if (t.kind === 'call') window.open('tel:+' + rxPhone(c.phone), '_self');
       };
       const cp = (txt, what) => { Promise.resolve().then(() => navigator.clipboard.writeText(txt)).catch(() => { }); setNote(what + ' copied.'); };
@@ -33165,26 +34955,37 @@
       return (
         <div className="cx-tab-body">
           <div className="cx-panel rc-filters"><div className="rc-frow">
-            <select className="rx-sel" value={st} onChange={(e) => { setSt(e.target.value); setPage(0); }}><option value="open">Open</option><option value="done">Done</option><option value="skipped">Skipped</option><option value="all">All</option></select>
-            <select className="rx-sel" value={fl} onChange={(e) => { setFl(e.target.value); setPage(0); }}><option value="all">All flows</option>{s.flows.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}</select>
-            <select className="rx-sel" value={kind} onChange={(e) => { setKind(e.target.value); setPage(0); }}><option value="all">All kinds</option>{Object.keys(RX_TKIND).map((k) => <option key={k} value={k}>{RX_TKIND[k].label}</option>)}</select>
-            <span className="rc-count">{openCount} open{late ? ', ' + late + ' late' : ''}</span>
+            <select className="rx-sel" value={fl} onChange={(e) => { setFl(e.target.value); setPage(0); }} title="Filter by flow"><option value="all">All flows</option>{s.flows.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}</select>
+            <button type="button" className={'rc-fb' + (kind === 'all' ? ' on' : '')} onClick={() => { setKind('all'); setPage(0); }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: 5, verticalAlign: 'middle', opacity: kind === 'all' ? 1 : 0.7 }}><Icon name="layers" size={13} /></span>
+              All kinds{kindCount('all') ? <small>{kindCount('all')}</small> : null}
+            </button>
+            {Object.keys(RX_TKIND).map((k) => {
+              const cnt = kindCount(k);
+              const info = RX_TKIND[k];
+              return (
+                <button key={k} type="button" className={'rc-fb' + (kind === k ? ' on' : '')} style={{ '--rc': info.col }} onClick={() => { setKind(k); setPage(0); }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', marginRight: 5, verticalAlign: 'middle', color: info.col, opacity: kind === k ? 1 : 0.85 }}>
+                    <Icon name={info.icon} size={13} />
+                  </span>
+                  {info.label}{cnt ? <small>{cnt}</small> : null}
+                </button>
+              );
+            })}
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <select className="rx-sel" value={st} onChange={(e) => { setSt(e.target.value); setPage(0); }} title="Filter by status" aria-label="Status"><option value="open">Open</option><option value="done">Done</option><option value="skipped">Skipped</option><option value="all">All</option></select>
+              <span className="rc-count" style={{ marginLeft: 0 }}>{openCount} open{late ? ', ' + late + ' late' : ''}</span>
+            </div>
           </div></div>
           {note && <div className="cx-note rx-ok">{note}</div>}
-          {liRows.length > 0 && (
-            <div className="cx-panel rx-lim">
-              <div className="rx-lim-h"><b>LinkedIn today</b><span className="rx-sub">{liCap ? 'Limit of ' + liCap + ' per person per day. LinkedIn restricts accounts that send too much. Extra tasks wait for the next day.' : 'No daily limit is set. Add one in Settings.'}</span></div>
-              <div className="rx-lim-r">{liRows.map((r) => { const full = liCap > 0 && r.n >= liCap; return (
-                <div key={r.who} className={'rx-lim-c' + (full ? ' full' : '')}><b>{r.who}</b><span>{r.n}{liCap ? ' of ' + liCap : ''} sent today</span><span className="rx-sub">{liLate(r.who)} ready now, {r.open} open in all</span></div>); })}</div>
-            </div>
-          )}
+          <RxReachoutKpiPanel s={s} todayIso={todayIso} />
           {list.length === 0 ? <div className="cx-note">{s.tasks.length ? 'No tasks match these filters.' : 'No tasks yet. When a live flow reaches a WhatsApp, LinkedIn, call or task step, each person shows up here for someone to do.'}</div> : (
             <div className="rx-tasks">{view.map((t) => {
-              const c = cm.get(t.contactId) || {}; const f = fm.get(t.flowId); const k = t.social ? { label: t.social.platform === 'linkedin' ? 'LinkedIn post' : 'Instagram post', col: '#ec4899' } : (RX_TKIND[t.kind] || RX_TKIND.todo); const lateT = t.status === 'open' && t.due < todayIso;
+              const c = cm.get(t.contactId) || {}; const f = fm.get(t.flowId); const k = isIgTask(t) ? RX_TKIND.ig : (t.social ? { label: t.social.platform === 'linkedin' ? 'LinkedIn post' : 'Instagram post', col: '#ec4899', icon: 'instagram' } : (RX_TKIND[t.kind] || RX_TKIND.todo)); const lateT = t.status === 'open' && t.due < todayIso;
               return (
                 <div key={t.id} className={'rx-task' + (t.status !== 'open' ? ' fin' : '')}>
                   <div className="rx-task-m">
-                    <div className="rx-task-t"><RxPill col={k.col}>{k.label}</RxPill><b>{t.title}</b></div>
+                    <div className="rx-task-t"><RxPill col={k.col}><span style={{ display: "inline-flex", alignItems: "center", gap: 4, verticalAlign: "middle" }}><Icon name={k.icon || "check-square"} size={12} />{k.label}</span></RxPill><b>{t.title}</b></div>
                     <div className="rx-sub">{t.kind === 'team' ? 'For the team, not one person' : (c.name || c.email || 'Removed contact')}{c.org ? ' · ' + c.org : ''}{t.kind === 'wa' || t.kind === 'call' ? ' · ' + (c.phone || '') : t.kind === 'mail' ? ' · ' + (c.email || '') : ''} · {f ? f.name : 'Deleted flow'} · {t.owner ? 'Owner: ' + t.owner : 'No owner set'} · <span className={lateT ? 'rx-bad' : ''}>Due {t.due}{lateT ? ' (late)' : ''}</span></div>
                     {(t.text || t.note) && <div className="rx-task-x">{rxClip(t.text || t.note, 220)}</div>}
                     {t.social && (<div className="rx-soc">
@@ -33200,16 +35001,12 @@
                   <div className="rx-task-a">
                     {t.status === 'open' && t.kind === 'li' ? (() => { const full = liCap > 0 && rxLiDoneToday(s, rxLiWho(t)) >= liCap; const waits = t.due > todayIso; const blocked = full || waits; return (<>
                       {blocked && <div className="rx-sub rx-bad">{waits ? 'Planned for ' + t.due + ' to stay under the daily limit' : rxLiWho(t) + ' has reached today\'s limit of ' + liCap}</div>}
-                      <button type="button" className="cx-btn" disabled={blocked} onClick={() => act(t, c)}>Copy and open profile</button>
-                      <button type="button" className="cx-btn cx-btn-primary" disabled={blocked} onClick={() => rxCloseTask(upd, t.id, 'done', 'sent')}>Sent</button>
-                      <button type="button" className="cx-btn" disabled={blocked} title="Sent, and they have already replied" onClick={() => rxCloseTask(upd, t.id, 'done', 'replied')}>Sent, they replied</button>
-                      <button type="button" className="cx-btn" title="They said no. They are taken off all future outreach." onClick={() => rxCloseTask(upd, t.id, 'done', 'declined')}>Not interested</button>
-                      <button type="button" className="cx-btn" title="Profile missing or blocked. This person is stopped and the link is marked as not working." onClick={() => rxCloseTask(upd, t.id, 'skip', 'unreachable')}>Could not send</button>
+                      <button type="button" className="cx-btn cx-btn-primary" disabled={blocked} onClick={() => act(t, c)}>Copy and open profile</button>
+                      <button type="button" className="cx-btn" title="Cancel or skip this outreach task" onClick={() => rxCloseTask(upd, t.id, 'skip', 'cancelled')}>Cancel</button>
                     </>); })() : t.status === 'open' ? (<>
-                      {actLabel[t.kind] && <button type="button" className="cx-btn" onClick={() => act(t, c)}>{actLabel[t.kind]}</button>}
-                      <button type="button" className="cx-btn cx-btn-primary" onClick={() => rxCloseTask(upd, t.id, 'done')}>Mark done</button>
-                      <button type="button" className="cx-btn" title="Skip this person and stop their flow" onClick={() => rxCloseTask(upd, t.id, 'skip')}>Skip</button>
-                    </>) : <RxPill col={t.outcome === 'declined' || t.outcome === 'unreachable' ? '#F59E0B' : t.status === 'done' ? '#05a049' : '#8E8E93'}>{t.kind === 'li' && t.outcome ? RX_LI_OUT[t.outcome] : t.status === 'done' ? 'Done' : 'Skipped'}</RxPill>}
+                      {actLabel[t.kind] && <button type="button" className="cx-btn cx-btn-primary" onClick={() => act(t, c)}>{actLabel[t.kind]}</button>}
+                      <button type="button" className="cx-btn" title="Cancel or skip this task" onClick={() => rxCloseTask(upd, t.id, 'skip')}>Cancel</button>
+                    </>) : <RxPill col={t.outcome === 'declined' || t.outcome === 'unreachable' || t.outcome === 'cancelled' ? '#F59E0B' : t.status === 'done' ? '#05a049' : '#8E8E93'}>{t.kind === 'li' && t.outcome ? (RX_LI_OUT[t.outcome] || 'Cancelled') : t.status === 'done' ? 'Done' : 'Cancelled'}</RxPill>}
                   </div>
                 </div>
               );
@@ -33301,7 +35098,7 @@
       return (
         <div className="cx-panel zl-card">
           <div className="zl-card-h">
-            <span className={'zl-logo ' + kind}><Icon name={kind === 'zoom' ? 'video' : 'calendar'} size={18} /></span>
+            <span className={'zl-logo ' + kind}><Icon name={kind === 'zoom' ? 'zoom' : 'calendar'} size={18} /></span>
             <div className="zl-card-t"><h3 className="cx-panel-title">{name}</h3><p className="zl-blurb">{blurb}</p></div>
             <span className={'zl-state ' + tone}><i />{label}</span>
           </div>
