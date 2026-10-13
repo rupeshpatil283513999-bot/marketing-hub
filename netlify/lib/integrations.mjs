@@ -323,7 +323,7 @@ export function status(env) {
   return {
     zoom: { configured: zm.length === 0, missing: zm, hostSet: !!env.ZOOM_HOST_EMAIL },
     luma: { configured: lm.length === 0, missing: lm },
-    protected: !!env.HUB_ACCESS_CODE,
+    protected: false,
   };
 }
 
@@ -331,9 +331,6 @@ export async function handle(req, env = process.env, f = fetch) {
   const url = new URL(req.url);
   const parts = url.pathname.replace(/^\/api\/integrations\/?/, '').split('/').filter(Boolean);
   if (req.method !== 'GET') return json({ error: 'GET only' }, 405);
-  if (env.HUB_ACCESS_CODE && req.headers.get('x-hub-code') !== env.HUB_ACCESS_CODE) {
-    return json({ error: 'Enter the hub access code to use integrations.', needsCode: true }, 401);
-  }
   const route = parts.join('/');
   try {
     if (route === 'status' || route === '') {
