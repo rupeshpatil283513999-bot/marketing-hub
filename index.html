@@ -12712,47 +12712,8 @@
   </div>
   <script>
 (function () {
-  /* Hub access code: adds x-hub-code to calls to the hub's own /api routes and asks for the code once if the server wants it. */
-  var KEY = 'valura_hub_code', asked = false, orig = window.fetch;
-  var OPEN = /^\/api\/(fx-rate|snapshot|confirm-hop|resend-webhook|interakt-webhook|integrations)/;
-  function code() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
-  function ask() {
-    if (asked) return; asked = true;
-    var w = document.createElement('div');
-    w.setAttribute('role', 'dialog'); w.setAttribute('aria-label', 'Team access code');
-    w.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px';
-    w.innerHTML = '<form style="background:var(--surface,#fff);color:var(--ink,#111);border:1px solid var(--border,#ddd);border-radius:12px;padding:20px;max-width:380px;width:100%;font:14px/1.5 system-ui,sans-serif">' +
-      '<b style="font-size:16px">Team access code</b>' +
-      '<p style="margin:8px 0 12px;color:var(--ink-soft,#555)">Sending and delivery updates need the team access code. It is kept for this browser tab only.</p>' +
-      '<input type="password" autocomplete="off" placeholder="Access code" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid var(--border,#ccc);border-radius:8px;background:var(--surface,#fff);color:inherit;font:inherit">' +
-      '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button type="button" data-x style="padding:8px 14px;border-radius:8px;border:1px solid var(--border,#ccc);background:transparent;color:inherit;font:inherit;cursor:pointer">Not now</button>' +
-      '<button type="submit" style="padding:8px 14px;border-radius:8px;border:0;background:#05a049;color:#fff;font:inherit;cursor:pointer">Save and reload</button></div></form>';
-    document.body.appendChild(w);
-    var inp = w.querySelector('input'); inp.focus();
-    w.querySelector('[data-x]').onclick = function () { w.remove(); };
-    w.querySelector('form').onsubmit = function (e) {
-      e.preventDefault(); var v = inp.value.trim(); if (!v) return;
-      try { sessionStorage.setItem(KEY, v); } catch (x) { }
-      location.reload();
-    };
-  }
-  window.fetch = function (input, init) {
-    var url = typeof input === 'string' ? input : (input && input.url) || '';
-    var path = url; try { path = new URL(url, location.href).pathname; } catch (e) { }
-    var same = url.charAt(0) === '/' || url.indexOf(location.origin) === 0;
-    if (!same || !/^\/api\//.test(path) || OPEN.test(path)) return orig.apply(this, arguments);
-    var c = code();
-    if (c) {
-      init = Object.assign({}, init || {});
-      var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
-      if (!h.has('x-hub-code')) h.set('x-hub-code', c);
-      init.headers = h;
-    }
-    return orig.call(this, input, init).then(function (r) {
-      if (r.status === 401) r.clone().json().then(function (j) { if (j && j.needsCode) ask(); }).catch(function () { });
-      return r;
-    });
-  };
+  /* Hub access code requirement removed from platform */
+  try { sessionStorage.removeItem('valura_hub_code'); } catch (e) { }
 })();
 </script>
 <script>
@@ -32127,7 +32088,7 @@
         try {
           const r = await fetch('/api/hub-events');
           if (r.ok) data = await r.json();
-          else { setEvInfo({ at: rxNow(), msg: '', err: r.status === 401 ? 'Enter the team access code to see delivery updates.' : r.status === 503 ? 'The hub needs HUB_ACCESS_CODE set before it can share delivery updates.' : r.status === 404 || r.status === 405 ? 'Delivery updates are not set up on this hub yet.' : 'Could not read delivery updates (' + r.status + ').', busy: false }); return; }
+          else { setEvInfo({ at: rxNow(), msg: '', err: r.status === 404 || r.status === 405 ? 'Delivery updates are not set up on this hub yet.' : 'Could not read delivery updates (' + r.status + ').', busy: false }); return; }
         } catch (e) { setEvInfo({ at: rxNow(), msg: '', err: 'Could not reach the hub to check delivery updates.', busy: false }); return; }
         const list = (data && data.events) || [];
         if (!list.length) { setEvInfo({ at: rxNow(), msg: quiet ? '' : 'Nothing new', err: '', busy: false }); return; }
@@ -35081,22 +35042,19 @@
     // nav section since they're run-of-show/AV checks rather than marketing steps.
     /* ---------- Tech: Zoom Webinars and Luma (live, read only, through the Netlify backend) ---------- */
     const ZL_KEY = 'valura_integrations_v1';
-    const ZL_CODE_KEY = 'valura_hub_code';
     function zlLoad() {
       try { const o = JSON.parse(localStorage.getItem(ZL_KEY)); if (o && Array.isArray(o.pairs)) return o; } catch (e) { }
       return { pairs: [] };
     }
     function zlSave(s) { try { localStorage.setItem(ZL_KEY, JSON.stringify(s)); } catch (e) { } }
-    function zlCode() { try { return sessionStorage.getItem(ZL_CODE_KEY) || ''; } catch (e) { return ''; } }
     async function zlApi(path) {
-      const code = zlCode();
       let r;
-      try { r = await fetch('/api/integrations/' + path, { headers: code ? { 'x-hub-code': code } : {}, cache: 'no-store' }); }
+      try { r = await fetch('/api/integrations/' + path, { cache: 'no-store' }); }
       catch (e) { const er = new Error('Could not reach the backend. This works on the deployed Netlify site, not from a local file.'); er.offline = true; throw er; }
       let j = null; try { j = await r.json(); } catch (e) { }
       if (!r.ok) {
         const er = new Error((j && j.error) || (r.status === 404 ? 'The integration backend was not found. Deploy the netlify folder with the latest files.' : 'Request failed (' + r.status + ')'));
-        er.needsCode = !!(j && j.needsCode); er.notConfigured = !!(j && j.notConfigured);
+        er.notConfigured = !!(j && j.notConfigured);
         throw er;
       }
       return j;
@@ -35377,13 +35335,6 @@
 
       return (
         <div className="cx-tab-body">
-          {needsCode && (
-            <div className="cx-panel">
-              <h3 className="cx-panel-title">Enter the hub access code</h3>
-              <p className="cx-panel-sub">The backend is protected with HUB_ACCESS_CODE. Enter it to use the Zoom and Luma connections. It is kept for this browser tab only.</p>
-              <div className="cx-head-actions"><input className="zl-input" type="password" value={codeInput} onChange={(e) => setCodeInput(e.target.value)} placeholder="Access code" aria-label="Hub access code" /><button type="button" className="cx-btn cx-btn-primary" onClick={saveCode} disabled={!codeInput.trim()}>Unlock</button></div>
-            </div>
-          )}
           {fatal && <div className="cx-note zl-bad">{fatal}</div>}
           <div className="zl-cards">
             <ZlPlatformCard kind="zoom" st={status && status.zoom} testing={!!testing.zoom} onTest={() => test('zoom')} listState={lists.zoom} onRefresh={() => loadList('zoom')} />
