@@ -55,14 +55,27 @@ async function handler(req, res) {
     const recipients = Array.isArray(to) ? to : [to];
 
     // Read API key strictly from server environment variables
-    const apiKey = (process.env.RESEND_API_KEY || process.env.EMAIL_PROVIDER_API_KEY || '').trim();
+    const rawKey = (process.env.RESEND_API_KEY || process.env.EMAIL_PROVIDER_API_KEY || '').trim();
+    const isMasked = /[^\x00-\x7F]/.test(rawKey) || rawKey.includes('•');
+    const apiKey = isMasked ? '' : rawKey;
+
+    if (isMasked && !body.simulate) {
+      const err = {
+        status: 'error',
+        code: 'INVALID_API_KEY',
+        error: 'RESEND_API_KEY in Netlify contains masked bullet characters (••••). Copy your actual Resend key (starts with re_) and paste it in Netlify Site configuration > Environment variables.',
+      };
+      if (typeof res.status === 'function') return res.status(400).json(err);
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(err));
+    }
 
     if (!apiKey && !body.simulate) {
       const err = {
         status: 'error',
         code: 'MISSING_API_KEY',
         error: 'Missing RESEND_API_KEY or EMAIL_PROVIDER_API_KEY in environment variables.',
-        hint: 'Add your key to .env.local for local testing or Vercel Project Settings for production.',
+        hint: 'Add your key to .env.local for local testing or Netlify Environment Variables for production.',
       };
       if (typeof res.status === 'function') return res.status(400).json(err);
       res.writeHead(400, { 'Content-Type': 'application/json' });
